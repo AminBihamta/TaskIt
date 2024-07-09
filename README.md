@@ -1,1 +1,1 @@
-To get access to the database, you can clone the repository in a different folder and pull. Then you can copy the 'taskitdb' folder inside your XAMMP directory and paste it 'C:\xampp\mysql\data'
+To gain access to the db file, replace your 'data' folder inside your XAMPP folder in the following directory 'C:\xampp\mysql' with the one included in the repo
