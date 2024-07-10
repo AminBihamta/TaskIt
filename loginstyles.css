@@ -1,0 +1,96 @@
+:root{
+    --Primary-Text-Color: #FFF; 
+    --Primary-color: #5531E5;
+    --Light-Purple-Text-Color: #BFAFFF;
+    --Done-Background-color: #2D1A7B;
+    --Purple-Background-Fill: #16172A;
+    --Background-color: #111111;
+    --Todo-Background: #1C1C1C;
+}
+
+body{
+    background-image: url(Rectangle\ 1.png);
+    background-color: var(--Background-color);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container{
+    display: flex;
+    padding: 63px 67px;
+    max-width: 90%;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    border-radius: 33px;
+    border: 3px solid var(--Primary-Text-Color);
+    backdrop-filter: blur(6.900000095367432px);
+    position: relative;
+}
+
+.logo{
+    z-index: 1; /* Ensure the logo is above the form */
+    margin-bottom: 20px;
+}
+
+.form-container{
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    z-index: 0;
+    width: 100%;
+}
+
+input::placeholder{
+    color: var(--Primary-Text-Color)
+}
+
+input{
+    color: var(--Primary-Text-Color);
+}
+
+
+.form-container #email, .form-container #password{
+    border-radius: 60px;
+    border: 2px solid var(--Primary-Text-Color);
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent
+}
+
+.submit-button{
+    background-color: transparent;
+    display: flex;
+    width: 100%;
+    justify-content: end;
+}
+
+.submit-button #submit{
+    padding: 10px 20px;
+    justify-content: end;
+    align-items: center;
+    gap: 10px;
+    border-radius: 60px;
+    background: var(--Primary-Text-Color);
+    color: var(--Primary-Color);
+    font-family: "Ek Mukta";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+
