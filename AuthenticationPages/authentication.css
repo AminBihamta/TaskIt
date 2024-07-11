@@ -9,7 +9,7 @@
 }
 
 body {
-  background-image: url(../media/Rectangle\ 1.png);
+  background-image: url(../media/background.png);
   background-color: var(--Background-color);
   background-size: cover;
   background-repeat: no-repeat;
@@ -51,7 +51,8 @@ input {
 }
 
 .form-container #email,
-.form-container #password {
+.form-container #password,
+.form-container #nickname {
   border-radius: 60px;
   border: 2px solid var(--Primary-Text-Color);
   display: flex;
@@ -62,7 +63,8 @@ input {
 
 @media only screen and (max-width: 969px) {
   .form-container #email,
-  .form-container #password {
+  .form-container #password,
+  .form-container #nickname {
     border-radius: 60px;
     border: 2px solid var(--Primary-Text-Color);
     display: flex;
@@ -92,4 +94,11 @@ input {
   display: flex;
   width: 100%;
   justify-content: end;
+}
+
+.register-message {
+  background-color: var(--Primary-Text-Color);
+  padding: 0px 20px;
+  border-radius: 20px;
+  color: var(--Primary-color);
 }
