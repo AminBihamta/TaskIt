@@ -1,6 +1,5 @@
 <?php
 
-
 require_once("config.php");
 
 // Get the email and password from the form
@@ -9,29 +8,27 @@ $password = trim($_POST["Password"]);
 
 // Input validation
 if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
-    // Run a SQL query to check if the email and password are in the db
-    $stmt = $conn->prepare("SELECT email FROM user WHERE email =? AND password =?");
-    // Bind parameters and execute the statement
-
-    $stmt->bind_param("ss", $email, $password);
+    // Check if the email exists
+    $stmt = $conn->prepare("SELECT password FROM user WHERE email = ?");
+    $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        echo "Logged in";
-    } else {
-        // Check if the email exists
-        $stmt = $conn->prepare("SELECT email FROM user WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            // Email exists but password is incorrect
-            echo "Incorrect password. Try again.";
+    if ($result->num_rows > 0) {
+        // Email exists, verify the password
+        $row = $result->fetch_assoc();
+        $hashedPassword = $row["password"];
+        $test = password_verify($password, $hashedPassword);
+
+        if ($test == true) {
+            echo "Logged in";
         } else {
-            // If not found, redirect to register page
-            echo " please register";
+            echo "Incorrect password. Try again.";
         }
+    } else {
+        // If not found, redirect to register page
+        header("Location: register.html");
+        exit();
     }
     $stmt->close();
 } else {
@@ -40,4 +37,3 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
 mysqli_close($conn);
 
 ?>
-
