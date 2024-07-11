@@ -25,6 +25,7 @@ body {
   padding: 40px;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .title-row {

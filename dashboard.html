@@ -45,15 +45,19 @@
           d="M98.3711 30.4697L86.8969 18.9972C86.2075 18.308 86.2075 17.1905 86.8969 16.5012L89.3933 14.0051C90.0826 13.3158 91.2004 13.3158 91.8897 14.0051L99.6193 21.7334L120.156 2.24157C120.845 1.55232 123.207 -0.501265 125.56 1.78677L128.001 4.40167C128.001 4.40167 128.001 4.40167 126.83 5.55256L100.868 30.4697C100.178 31.159 99.0604 31.159 98.3711 30.4697Z"
           fill="#5531E5"
         />
-        <p>All Tasks</p>
       </svg>
+
+      <a href="">All Tasks</a>
     </header>
     <h1>Welcome Amin!</h1>
     <div class="boxedDiv">
       <div class="space-evenly-items">
-        <button style="width: 50%">+ Add a new task</button>
+        <button style="width: 50%" onclick="openPopup()">
+          + Add a new task
+        </button>
         <button style="width: 20%">
           <svg
+            style="padding-top: 3px"
             xmlns="http://www.w3.org/2000/svg"
             width="20"
             height="18"
@@ -70,19 +74,295 @@
             /></svg
           >Filter
         </button>
-        <button style="width: 20%">Sort</button>
+        <button style="width: 20%">
+          <svg
+            style="padding-top: 5px"
+            xmlns="http://www.w3.org/2000/svg"
+            width="23"
+            height="14"
+            viewBox="0 0 23 14"
+            fill="none"
+          >
+            <path
+              d="M13.0278 13.5H10.4722C10.104 13.5 9.80556 13.2015 9.80556 12.8333C9.80556 12.4651 10.104 12.1667 10.4722 12.1667H13.0278C13.396 12.1667 13.6944 12.4651 13.6944 12.8333C13.6944 13.2015 13.396 13.5 13.0278 13.5ZM21.5833 1.83333H1.91667C1.54848 1.83333 1.25 1.53486 1.25 1.16667C1.25 0.798476 1.54848 0.5 1.91667 0.5H21.5833C21.9515 0.5 22.25 0.798477 22.25 1.16667C22.25 1.53486 21.9515 1.83333 21.5833 1.83333ZM17.9167 7.66667H5.58333C5.21514 7.66667 4.91667 7.36819 4.91667 7C4.91667 6.63181 5.21514 6.33333 5.58333 6.33333H17.9167C18.2849 6.33333 18.5833 6.63181 18.5833 7C18.5833 7.36819 18.2849 7.66667 17.9167 7.66667Z"
+              fill="white"
+              stroke="white"
+            /></svg
+          >Sort
+        </button>
       </div>
       <div id="kanbanboardContainer">
-        <div>
-          <div class="taskItem"></div>
+        <div class="kanbanBoardColumn">
+          <p class="kanbanColumnHeading">Todo</p>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
+                fill="#5531E5"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
+                stroke="#5531E5"
+                stroke-width="2"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
+                stroke="white"
+                stroke-width="2"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <div class="taskItem"></div>
+        <div class="kanbanBoardColumn inProgressColumn">
+          <p class="kanbanColumnHeading">In Progress</p>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
+                fill="#5531E5"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
+                stroke="#5531E5"
+                stroke-width="2"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
+                stroke="white"
+                stroke-width="2"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div>
-          <div class="taskItem"></div>
+        <div class="kanbanBoardColumn doneColumn">
+          <p class="kanbanColumnHeading">Done</p>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
+                fill="#5531E5"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
+                stroke="#5531E5"
+                stroke-width="2"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
+          <div class="taskItem">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="41"
+              viewBox="0 0 20 41"
+              fill="none"
+            >
+              <path
+                d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
+                stroke="white"
+                stroke-width="2"
+              />
+            </svg>
+            <div class="taskDetialsContainer">
+              <p class="taskTitle">Washing Dishes</p>
+              <div>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  2024/02/03
+                </p>
+                <p class="taskDetail" style="border-right: 1px solid">
+                  11:59 pm
+                </p>
+                <p class="taskDetail">Uni</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div id="overlay" class="overlay" onclick="closePopup(event)">
+      <div class="popup">
+        <iframe
+          src="addtask.html"
+          frameborder="0"
+          style="width: 100%; height: 100%"
+        ></iframe>
+      </div>
+    </div>
+
+    <script>
+      function openPopup() {
+        document.getElementById("overlay").style.display = "flex";
+      }
+      function closePopup(event) {
+        if (event.target == document.getElementById("overlay")) {
+          document.getElementById("overlay").style.display = "none";
+        }
+      }
+    </script>
   </body>
 </html>
