@@ -1,0 +1,84 @@
+:root {
+  --Primary-Text-Color: #fff;
+  --Primary-color: #5531e5;
+  --Light-Purple-Text-Color: #bfafff;
+  --Done-Background-color: #2d1a7b;
+  --Purple-Background-Fill: #16172a;
+  --Background-color: #111111;
+  --Todo-Background: #1c1c1c;
+}
+
+body {
+  background-color: var(--Background-color);
+}
+
+p {
+  color: var(--Primary-Text-Color);
+  font-family: "Ek Mukta", Calibri;
+  font-size: 25px;
+}
+
+h1 {
+  color: var(--Primary-Text-Color);
+  font-family: "Baloo Tammudu", sans-serif;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  vertical-align: middle;
+  padding: 20px;
+}
+
+.boxedDiv {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.space-evenly-items {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+#kanbanboardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+#kanbanboardContainer div {
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.taskItem {
+  width: 200px;
+  height: 40px;
+}
+
+button {
+  border-radius: 60px;
+  border: 1px solid var(--Primary-Color, #5531e5);
+  background: var(--Done-Background-Color, #2d1a7b);
+  padding: 10px 30px;
+  color: var(--Primary-Text-Color, #fff);
+  leading-trim: both;
+  text-edge: cap;
+  font-family: "Ek Mukta", Calibri;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  gap: 5px;
+}
