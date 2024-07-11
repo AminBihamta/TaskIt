@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup {
+            background: none;
+            /* padding: 20px; */
+            border: solid #5531E5;
+            border-width: 6px;
+            border-radius: 30px;
+            width: 525px;
+            height: 494px;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <button class = "button" onclick = "openPopup()">Add Task</button>
+
+    <div id="overlay" class="overlay" onclick="closePopup(event)">
+        <div class="popup">
+            <iframe src = "addtask.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function openPopup() {
+            document.getElementById("overlay").style.display = "flex";
+        }
+        function closePopup(event) {
+            if (event.target == document.getElementById("overlay")) {
+                document.getElementById("overlay").style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
