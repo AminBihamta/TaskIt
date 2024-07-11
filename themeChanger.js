@@ -1,6 +1,5 @@
-//changes themes of page to pink, cyan, orange or back to purple
-//changes to light theme
-//
+//changes themes of page to pink, cyan, orange, light or back to purple
+//saves info in cookie and loads the cookie file whenever the user re-visits the site
 
 //* cookie functionality
 // Function to set a cookie
