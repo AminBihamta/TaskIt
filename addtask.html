@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+    <link rel="stylesheet" href="addtask.css">
+</head>
+<body>
+    <div class = "TaskContainer">
+        <form id = "addtask" action = "addTask.php" method="post">
+            <div class = "title-row">
+                <input type="text" id="taskTitle" placeholder=" Task Title Goes Here" name="TaskTitle" required>
+                <button class = "delete"><img src = "media/deleteIcon.svg"></button>
+            </div>
+    
+            <div class = "form-row1">
+                <div class = "date">
+                    <label for="task-date"><img src = "media/Calendaricon.svg" alt="Calender"></label>
+                    <input type="date" id="task-date" name="DueDate">
+                </div>
+        
+                <div class = "priority">
+                    <label for="task-priority"><img src = "media/priorityIcon.svg" alt="Priority"></label>
+                    <select id="task-priority" name="Priority">
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+            </div>
+        
+            <div class = "form-row2">
+                <div class = "category">
+                    <label for="task-category"><img src = "media/categoryIcon.svg" alt="Category"></label>
+                    <input list="category-options" id="categories" name="Category">
+                        <datalist id="category-options">
+                            <option value="Category 1">
+                            <option value="Category 2">
+                            <option value="Category 3">
+                        </datalist>
+                </div>
+        
+                <div class = "status">
+                    <label for="task-status"><img src = "media/statusIcon.svg" alt="Status"></label>
+                    <select id="task-status" name="Status" placeholder = "Status">
+                        <option value="Todo">Todo</option>
+                        <option value="In-Progress">In Progress</option>
+                        <option value="Done">Done</option>
+                    </select>
+                    </select>
+                </div>
+            </div>
+            <div class="notes-row">
+                <label for="task-desc"><img src = "media/descriptionIcon.svg" alt="desc"></label>
+                <textarea id="task-desc" name="taskDescription" placeholder="Description"></textarea>
+            </div>
+    
+            <div class="add-button">
+                <button type="submit"> Add Task </button>
+            </div>
+
+        </form>
+        
+    </div>
+
+    <script src = "addtask.js"></script>
+    
+</body>
+</html>
