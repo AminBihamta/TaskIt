@@ -1,3 +1,1 @@
-Windows: To gain access to the db file, replace your 'data' folder inside your XAMPP folder in the following directory 'C:\xampp\mysql' with the one included in the repo
-
-Mac: Replace the content the /Applications/XAMPP/xamppfiles/var with the content inside of the data folder
+To gain access to the database, make sure you first create a DB called 'taskitdb' in myphpadmin, then press the export button on the top of the page and add the sql file included here
