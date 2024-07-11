@@ -3,53 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TaskIt Kanban Board</title>
+    <title>Document</title>
     <link rel="stylesheet" href="homepage.css" />
-    <script src="drag.js" defer></script>
-    <script src="todo.js" defer></script>
   </head>
   <body>
-    <header>
-      <div class="logo">TaskIt</div>
-      <div class="user-greeting">Welcome Amin!</div>
-      <div class="all-tasks-link">All Tasks</div>
-    </header>
-    <div class="board-container">
-      <div class="controls">
-        <button id="add-task-btn">+ Add a new task</button>
-        <button id="filter-btn">Filter</button>
-        <button id="sort-btn">Sort</button>
+    <div class="boxedDiv">
+      <div class="space-evenly-items">
+        <button>+ Add a new task</button>
+        <button>Filter</button>
+        <button>Sort</button>
       </div>
-      <div class="board">
-        <form id="todo-form" class="hidden">
-          <input type="text" placeholder="New TODO..." id="todo-input" />
-          <button type="submit">Add +</button>
-        </form>
-        <div id="kanbanboardContainer" class="lanes">
-          <div class="swim-lane" id="todo-lane">
-            <h3 class="heading">Todo</h3>
-          </div>
-          <div class="swim-lane" id="doing-lane">
-            <h3 class="heading">In Progress</h3>
-          </div>
-          <div class="swim-lane" id="done-lane">
-            <h3 class="heading">Done</h3>
-          </div>
+      <div id="kanbanboardContainer">
+        <div>
+          <div class="taskItem"></div>
         </div>
-      </div>
-    </div>
-    <div id="edit-task-modal" class="hidden">
-      <div class="edit-task-container">
-        <h3>Edit Task</h3>
-        <input type="text" id="edit-task-title" placeholder="Task Title" />
-        <input type="date" id="edit-task-date" />
-        <select id="edit-task-priority">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-        <textarea id="edit-task-notes" placeholder="Notes"></textarea>
-        <button id="save-task-btn">Save</button>
+        <div>
+          <div class="taskItem"></div>
+        </div>
+        <div>
+          <div class="taskItem"></div>
+        </div>
       </div>
     </div>
   </body>
