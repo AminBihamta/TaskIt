@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="dashboardStyles.css" />
-    <script src="themeChanger.js"></script> 
-    <link rel="stylesheet" href="themeButtonStyles.css">
+    <script src="themeChanger.js"></script>
+    <link rel="stylesheet" href="themeButtonStyles.css" />
   </head>
-  <body>
+  <body id="mainBody">
     <header>
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -48,16 +48,32 @@
           fill="#5531E5"
         />
       </svg>
-     <!--buttons for changing themes-->
+      <!--buttons for changing themes-->
       <form id="themeButtonContainer">
-        <button type="button" class="theme-button changeToPink"></button>
-        <button type="button" class="theme-button changeToCyan"></button>
-        <button type="button" class="theme-button changeToOrange"></button>
-        <button type="button" class="theme-button changeToPurple"></button>
+        <button
+          type="button"
+          style="width: 30px; height: 30px"
+          class="theme-button changeToPink"
+        ></button>
+        <button
+          type="button"
+          style="width: 30px; height: 30px"
+          class="theme-button changeToCyan"
+        ></button>
+        <button
+          type="button"
+          style="width: 30px; height: 30px"
+          class="theme-button changeToOrange"
+        ></button>
+        <button
+          type="button"
+          style="width: 30px; height: 30px"
+          class="theme-button changeToPurple"
+        ></button>
       </form>
       <a href="">All Tasks</a>
     </header>
-    
+
     <h1>Welcome Amin!</h1>
     <div class="boxedDiv">
       <div class="space-evenly-items">
@@ -362,7 +378,6 @@
         ></iframe>
       </div>
     </div>
-
 
     <script>
       function openPopup() {

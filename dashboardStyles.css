@@ -8,11 +8,15 @@
   --Todo-Background: #1c1c1c;
 }
 h1 {
-  margin: 0px 0px 50px 0px;
+  margin: 40px 0px 50px 0px;
 }
 
-body {
+#mainBody {
   background-color: var(--Background-color);
+}
+
+#addTaskBody {
+  background-color: var(--Purple-Background-Fill);
 }
 
 p,
@@ -171,4 +175,169 @@ button:hover {
 .doneColumn .kanbanColumnHeading {
   background-color: var(--Primary-color);
   border-color: var(--Primary-color);
+}
+
+.TaskContainer {
+  width: 80%;
+  height: 80vh;
+  padding: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+}
+
+.title-row input[type="text"] {
+  width: 90%;
+  background: transparent;
+  border: none;
+  font-size: 30px;
+  color: var(--Primary-Text-Color);
+}
+
+.title-row input::placeholder {
+  color: var(--Primary-Text-Color);
+}
+
+.title-row button {
+  background: transparent;
+  border: none;
+}
+
+.form-row1,
+.form-row2,
+.notes-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  gap: 10px;
+}
+
+datalist {
+  display: contents;
+}
+
+.date input[type="date"],
+select,
+input[list="category-options"] {
+  width: 70%;
+  background: transparent;
+  border: solid 1px var(--Primary-color);
+  height: 80%;
+  color: var(--Primary-Text-Color);
+}
+
+.date,
+.priority,
+.status,
+.category {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 45%;
+}
+
+.notes-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+textarea {
+  width: 85%;
+  background: transparent;
+  border: solid 1px var(--Primary-color);
+  color: var(--Primary-Text-Color);
+}
+
+textarea::placeholder {
+  color: var(--Primary-Text-Color);
+}
+
+.add-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+button {
+  background: var(--Primary-color);
+  border: none;
+  padding: 10px 30px;
+  border-radius: 20px;
+  height: 40px;
+  color: var(--Primary-Text-Color);
+}
+
+header {
+  display: flex;
+  align-items: center;
+}
+
+#themeButtonContainer {
+  display: flex;
+  align-items: flex-start;
+  /* Adjust this to your preference */
+}
+
+.theme-button {
+  width: 15px; /* Initial small size */
+  height: 15px; /* Initial small size */
+  border-radius: 50%;
+  border: 2px solid;
+  margin: 0 5px; /* Space between buttons */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 2px;
+}
+
+/* Adjust button size based on viewport width */
+@media (min-width: 768px) {
+  .theme-button {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+/* Pink Theme Button */
+.changeToPink {
+  background-color: #e531c8;
+}
+
+.changeToPink:hover {
+  background-color: #d420b2;
+}
+
+/* Cyan Theme Button */
+.changeToCyan {
+  background-color: #2cb6a5;
+}
+
+.changeToCyan:hover {
+  background-color: #229e8c;
+}
+
+/* Orange Theme Button */
+.changeToOrange {
+  background-color: #b67f2c;
+}
+
+.changeToOrange:hover {
+  background-color: #9f6d1e;
+}
+
+/* Purple Theme Button */
+.changeToPurple {
+  background-color: #5531e5;
+}
+
+.changeToPurple:hover {
+  background-color: #4729c0;
 }
