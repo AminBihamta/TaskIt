@@ -35,7 +35,7 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 .boxedDiv {
@@ -91,16 +91,16 @@ header {
   align-items: center;
   gap: 10px;
   border-radius: 10px;
-  border: 2px solid var(--Primary-Text-Color, #fff);
-  background: var(--Todo-Background, #1c1c1c);
+  border: 2px solid var(--Primary-Text-Color);
+  background: var(--Todo-Background);
 }
 
 button {
   border-radius: 60px;
-  border: 1px solid var(--Primary-Color, #5531e5);
-  background: var(--Done-Background-Color, #2d1a7b);
+  border: 1px solid var(--Primary-Color);
+  background: var(--Done-Background-color);
   padding: 10px 30px;
-  color: var(--Primary-Text-Color, #fff);
+  color: var(--Primary-Text-Color);
   font-family: "Ek Mukta", Calibri;
   font-size: 20px;
   font-style: normal;
@@ -133,7 +133,7 @@ button:hover {
 .popup {
   background: none;
   /* padding: 20px; */
-  border: solid #5531e5;
+  border: solid var(--Primary-color);
   border-width: 6px;
   border-radius: 30px;
   width: 525px;

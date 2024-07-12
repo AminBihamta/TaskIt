@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="dashboardStyles.css" />
+    <script src="themeChanger.js"></script> 
+    <link rel="stylesheet" href="themeButtonStyles.css">
   </head>
   <body>
     <header>
@@ -46,9 +48,16 @@
           fill="#5531E5"
         />
       </svg>
-
+     <!--buttons for changing themes-->
+     <div id="themeButtonContainer">  
+      <button class="theme-button changeToPink"></button>
+      <button class="theme-button changeToCyan"></button>
+      <button class="theme-button changeToOrange"></button>
+      <button class="theme-button changeToPurple"></button>
+    </div>
       <a href="">All Tasks</a>
     </header>
+    
     <h1>Welcome Amin!</h1>
     <div class="boxedDiv">
       <div class="space-evenly-items">
@@ -353,6 +362,7 @@
         ></iframe>
       </div>
     </div>
+
 
     <script>
       function openPopup() {

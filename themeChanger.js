@@ -37,8 +37,7 @@ function applyTheme(theme) {
         document.documentElement.style.setProperty('--Light-Purple-Text-Color', '#FDAFFF');
         document.documentElement.style.setProperty('--Done-Background-color', '#7B1A60');
         document.documentElement.style.setProperty('--Purple-Background-Fill', '#2A1622');
-        document.documentElement.style.setProperty('--Primary-Text-Color', '#FFF');
-        document.documentElement.style.setProperty('--Background-color', '#111111');
+      
     } 
 
     //change to cyan
@@ -47,8 +46,7 @@ function applyTheme(theme) {
         document.documentElement.style.setProperty('--Light-Purple-Text-Color', '#AFE7FF');
         document.documentElement.style.setProperty('--Done-Background-color', '#1A697B');
         document.documentElement.style.setProperty('--Purple-Background-Fill', '#162A25');
-        document.documentElement.style.setProperty('--Primary-Text-Color', '#FFF');
-        document.documentElement.style.setProperty('--Background-color', '#111111');
+        
     } 
 
     //change to orange
@@ -57,8 +55,7 @@ function applyTheme(theme) {
         document.documentElement.style.setProperty('--Light-Purple-Text-Color', '#FFD6AF');
         document.documentElement.style.setProperty('--Done-Background-color', '#784B16');
         document.documentElement.style.setProperty('--Purple-Background-Fill', '#2A2316');
-        document.documentElement.style.setProperty('--Primary-Text-Color', '#FFF');
-        document.documentElement.style.setProperty('--Background-color', '#111111');
+        
     } 
 
     //change to purple
@@ -67,19 +64,9 @@ function applyTheme(theme) {
         document.documentElement.style.setProperty('--Light-Purple-Text-Color', '#BFAFFF');
         document.documentElement.style.setProperty('--Done-Background-color', '#2D1A7B');
         document.documentElement.style.setProperty('--Purple-Background-Fill', '#16172A');
-        document.documentElement.style.setProperty('--Primary-Text-Color', '#111111');
-        document.documentElement.style.setProperty('--Background-color', '#FFF');
     } 
 
-    //change to light theme
-    else if (theme === "light") {
-        document.documentElement.style.setProperty('--Primary-color', '#5531E5');
-        document.documentElement.style.setProperty('--Light-Purple-Text-Color', '#BFAFFF');
-        document.documentElement.style.setProperty('--Done-Background-color', '#2D1A7B');
-        document.documentElement.style.setProperty('--Purple-Background-Fill', '#16172A');
-        document.documentElement.style.setProperty('--Primary-Text-Color', '#111111');
-        document.documentElement.style.setProperty('--Background-color', '#FFF');
-    }
+    
 }
 
 //*updating theme for webapp and cookies functionality
@@ -120,10 +107,4 @@ document.addEventListener('DOMContentLoaded', (event) => {
         applyTheme("purple");
     });
 
-    //changes theme and cookie to light
-    const changeToLightButton = document.getElementsByClassName('changeToLight')[0];
-    changeToLightButton.addEventListener('click', () => {
-        setCookie("theme", "light", 30);
-        applyTheme("light");
-    });
 });

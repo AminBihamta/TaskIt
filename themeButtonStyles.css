@@ -1,0 +1,73 @@
+header {
+    display: flex;
+    align-items: center;
+  }
+  
+  #themeButtonContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; /* Adjust this to your preference */
+  }
+  
+  .theme-button {
+    width: 10px; /* Initial small size */
+    height: 10px; /* Initial small size */
+    border-radius: 50%;
+    border: none;
+    margin: 0 5px; /* Space between buttons */
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  /* Adjust button size based on viewport width */
+  @media (min-width: 768px) {
+    .theme-button {
+      width: 25px;
+      height: 25px;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .theme-button {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  
+/* Pink Theme Button */
+.changeToPink {
+    background-color: #E531C8;
+}
+
+.changeToPink:hover {
+    background-color: #D420B2;
+}
+
+/* Cyan Theme Button */
+.changeToCyan {
+    background-color: #2CB6A5;
+}
+
+.changeToCyan:hover {
+    background-color: #229E8C;
+}
+
+/* Orange Theme Button */
+.changeToOrange {
+    background-color: #B67F2C;
+}
+
+.changeToOrange:hover {
+    background-color: #9F6D1E;
+}
+
+/* Purple Theme Button */
+.changeToPurple {
+    background-color: #5531E5;
+}
+
+.changeToPurple:hover {
+    background-color: #4729C0;
+}
+
+
