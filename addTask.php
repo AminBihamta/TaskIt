@@ -1,7 +1,12 @@
 <?php
 
-session_start(); // Start the session to access session variables
-require_once('config.php');
+session_start();// Start the session to access session variables
+require_once("AuthenticationPages/config.php");
+
+if (!isset($_SESSION['$userEmail'])) {
+    echo json_encode(['success' => false, 'message' => 'Session variable userEmail not set']);
+    exit();
+}
 
 
 // Ensure required data is present
@@ -14,22 +19,22 @@ if (isset($_POST['TaskTitle'], $_POST['DueDate'], $_POST['Priority'], $_POST['St
     $category = trim($_POST['Category']);
 
     // Get the logged-in user's email from the session
-    if (isset($_SESSION['userEmail'])) {
-        $userEmail = $_SESSION['userEmail'];
+    if (isset($_SESSION['$userEmail'])) {
+        $userEmail = $_SESSION['$userEmail'];
     } else {
         echo json_encode(['success' => false, 'message' => 'User not logged in']);
         exit();
     }
 
     // Check if category already exists
-    $stmt = $conn->prepare("SELECT CategoryID FROM categories WHERE CategoryName = ? AND UserEmail = ?");
+    $stmt = $conn->prepare("SELECT CategoryID FROM category WHERE CategoryName = ? AND UserEmail = ?");
     $stmt->bind_param("ss", $category, $userEmail);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 0) {
         // Insert new category into the database
-        $stmt = $conn->prepare("INSERT INTO categories (CategoryName, UserEmail) VALUES (?, ?)");
+        $stmt = $conn->prepare("INSERT INTO category (CategoryName, UserEmail) VALUES (?, ?)");
         $stmt->bind_param("ss", $category, $userEmail);
         if ($stmt->execute()) {
             $categoryId = $stmt->insert_id;
@@ -59,4 +64,5 @@ if (isset($_POST['TaskTitle'], $_POST['DueDate'], $_POST['Priority'], $_POST['St
 }
 
 mysqli_close($conn);
+
 ?>
