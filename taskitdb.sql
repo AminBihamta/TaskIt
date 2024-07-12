@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 11, 2024 at 03:15 PM
+-- Generation Time: Jul 11, 2024 at 07:36 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,7 +45,7 @@ CREATE TABLE `task` (
   `DueDate` date NOT NULL,
   `Priority` varchar(7) NOT NULL,
   `Status` varchar(15) NOT NULL,
-  `TaskDescription` varchar(254) NOT NULL,
+  `TaskDescription` varchar(254) DEFAULT NULL,
   `CategoryID` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -58,7 +58,7 @@ CREATE TABLE `task` (
 CREATE TABLE `user` (
   `NickName` varchar(10) NOT NULL,
   `Email` varchar(254) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(60) NOT NULL,
   `UserType` varchar(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
