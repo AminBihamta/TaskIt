@@ -1,0 +1,104 @@
+:root {
+  --Primary-Text-Color: #fff;
+  --Primary-color: #5531e5;
+  --Light-Purple-Text-Color: #bfafff;
+  --Done-Background-color: #2d1a7b;
+  --Purple-Background-Fill: #16172a;
+  --Background-color: #111111;
+  --Todo-Background: #1c1c1c;
+}
+
+body {
+  background-image: url(../media/background.png);
+  background-color: var(--Background-color);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container {
+  display: flex;
+  padding: 40px;
+  gap: 40px;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 33px;
+  border: 3px solid var(--Primary-Text-Color);
+  backdrop-filter: blur(6.900000095367432px);
+  background-color: rgba(0, 0, 0, 0.243);
+}
+
+.form-container form {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+input::placeholder {
+  color: var(--Primary-Text-Color);
+}
+
+input {
+  color: var(--Primary-Text-Color);
+}
+
+.form-container #email,
+.form-container #password,
+.form-container #nickname {
+  border-radius: 60px;
+  border: 2px solid var(--Primary-Text-Color);
+  display: flex;
+  width: 340px;
+  padding: 15px;
+  background-color: transparent;
+}
+
+@media only screen and (max-width: 969px) {
+  .form-container #email,
+  .form-container #password,
+  .form-container #nickname {
+    border-radius: 60px;
+    border: 2px solid var(--Primary-Text-Color);
+    display: flex;
+    width: 240px;
+    padding: 15px;
+    background-color: transparent;
+  }
+}
+
+#submit {
+  padding: 15px 20px;
+  justify-content: end;
+  align-items: center;
+  gap: 10px;
+  border-radius: 60px;
+  background: var(--Primary-Text-Color);
+  color: var(--Primary-color);
+  font-family: "Ek Mukta", arial;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+}
+
+#submit-container {
+  display: flex;
+  width: 100%;
+  justify-content: end;
+}
+
+.register-message {
+  background-color: var(--Primary-Text-Color);
+  padding: 0px 20px;
+  border-radius: 20px;
+  color: var(--Primary-color);
+}
