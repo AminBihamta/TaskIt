@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once("config.php");
 
 $nickname = trim($_POST["NickName"]);
@@ -10,13 +12,16 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 $sql = "INSERT INTO user (nickname, email, password) VALUES (?, ?, ?)";
 
+
 if ($stmt = mysqli_prepare($conn, $sql)) {
     // Bind variables to the prepared statement as parameters
     mysqli_stmt_bind_param($stmt, "sss", $nickname, $email, $hashedPassword);
 
     // Attempt to execute the prepared statement
     if (mysqli_stmt_execute($stmt)) {
-        echo "User registered successfully.";
+        $_SESSION['$userEmail'] = $email;
+        header("Location: dashboard.php");
+        exit();;
     } else {
         echo "ERROR: Could not execute query: $sql. " . mysqli_error($conn);
     }
