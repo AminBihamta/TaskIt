@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +39,7 @@ session_start();
         d="M98.3711 30.4697L86.8969 18.9972C86.2075 18.308 86.2075 17.1905 86.8969 16.5012L89.3933 14.0051C90.0826 13.3158 91.2004 13.3158 91.8897 14.0051L99.6193 21.7334L120.156 2.24157C120.845 1.55232 123.207 -0.501265 125.56 1.78677L128.001 4.40167C128.001 4.40167 128.001 4.40167 126.83 5.55256L100.868 30.4697C100.178 31.159 99.0604 31.159 98.3711 30.4697Z"
         fill="#5531E5" />
     </svg>
-    <!--buttons for changing themes-->
+    <!-- buttons for changing themes-->
     <form id="themeButtonContainer">
       <button type="button" style="width: 30px; height: 30px" class="theme-button changeToPink"></button>
       <button type="button" style="width: 30px; height: 30px" class="theme-button changeToCyan"></button>
@@ -277,19 +278,101 @@ session_start();
 
   <div id="overlay" class="overlay" onclick="closePopup(event)">
     <div class="popup">
-      <iframe src="addtask.html" frameborder="0" style="width: 100%; height: 100%"></iframe>
-    </div>
+      <div class="TaskContainer">
+        <form id="addtask" action="addTask.php" method="post">
+          <div class="title-row">
+            <input type="text" id="taskTitle" placeholder="Task Title Goes Here" name="TaskTitle" required>
+            <button class="delete"><img src="media/deleteIcon.svg"></button>
+          </div>
+
+          <div class="form-row1">
+            <div class="date">
+              <label for="task-date"><img src="media/Calendaricon.svg" alt="Calender"></label>
+              <input type="date" id="task-date" name="DueDate">
+            </div>
+
+            <div class="priority">
+              <label for="task-priority"><img src="media/priorityIcon.svg" alt="Priority"></label>
+              <select id="task-priority" name="Priority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row2">
+            <div class="category">
+              <label for="task-category"><img src="media/categoryIcon.svg" alt="Category"></label>
+              <input list="category-options" id="categories" name="Category">
+              <datalist id="category-options">
+                <option value="Category 1">
+                <option value="Category 2">
+                <option value="Category 3">
+              </datalist>
+            </div>
+
+            <div class="status">
+              <label for="task-status"><img src="media/statusIcon.svg" alt="Status"></label>
+              <select id="task-status" name="Status" placeholder="Status">
+                <option value="Todo">Todo</option>
+                <option value="In-Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
+              </select>
+            </div>
+          </div>
+          <div class="notes-row">
+            <label for="task-desc"><img src="media/descriptionIcon.svg" alt="desc"></label>
+            <textarea id="task-desc" name="taskDescription" placeholder="Description"></textarea>
+          </div>
+
+          <div class="add-button">
+            <button class="button" type="submit"> Add Task </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div><!-- /.overlay -->
   </div>
 
+
   <script>
-    function openPopup() {
-      document.getElementById("overlay").style.display = "flex";
-    }
-    function closePopup(event) {
-      if (event.target == document.getElementById("overlay")) {
-        document.getElementById("overlay").style.display = "none";
+    document.getElementById("addtask").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+    const formData = new FormData(this);
+    fetch("addTask.php", {
+      method: "POST",
+      body: formData,
+      credentials: 'same-origin' // This line is important for maintaining the session
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        closePopup("overlay");
+        document.getElementById("addtask").reset();
+        alert("Task added successfully");
+      } else {
+        alert("Failed to add task: " + data.message);
       }
-    }
+    })
+    .catch(error => {
+      alert("An error occurred: " + error.message);
+    });
+  });
+      function openPopup() {
+        document.getElementById("overlay").style.display = "flex";
+      }
+      function closePopup(event) {
+        if (event.target == document.getElementById("overlay")) {
+          document.getElementById("overlay").style.display = "none";
+        }
+        else if(document.getElementById(event)){
+          document.getElementById("overlay").style.display = "none";
+        }
+      }
+
   </script>
 </body>
 
