@@ -2,11 +2,12 @@
 
 session_start();
 
-require_once("config.php");
+require_once ("config.php");
 
 $nickname = trim($_POST["NickName"]);
 $email = trim($_POST["Email"]);
 $password = trim($_POST["Password"]);
+
 
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
@@ -21,7 +22,7 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['$userEmail'] = $email;
         header("Location:../dashboard.php");
-        exit();;
+        exit();
     } else {
         echo "ERROR: Could not execute query: $sql. " . mysqli_error($conn);
     }
