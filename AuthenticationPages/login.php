@@ -23,9 +23,9 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
         $test = password_verify($password, $hashedPassword);
 
         if ($test == true) {
-            $nickName = $row["NickName"];
-            $_SESSION['$userNickName'] = $nickName;
+            $nickname = $row["NickName"];
             $_SESSION['$userEmail'] = $email;
+            $_SESSION['$userNickname'] = $nickname;
             header("Location: ../Dashboard/dashboard.php");
             exit();
         } else {
