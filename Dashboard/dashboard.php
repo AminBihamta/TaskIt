@@ -2,7 +2,23 @@
 session_start();
 require_once ('../config.php');
 
+$userEmail = $_SESSION['$userEmail'];
+$sql = "SELECT * FROM task WHERE Email = ? ORDER BY DueDate ASC";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $userEmail);
+$stmt->execute();
+$result = $stmt->get_result();
 
+$tasks = [
+  'Todo' => [],
+  'In-Progress' => [],
+  'Done' => []
+];
+
+while ($row = $result->fetch_assoc()) {
+  $tasks[$row['Status']][] = $row;
+}
+$stmt->close();
 
 
 ?>
@@ -107,208 +123,53 @@ require_once ('../config.php');
       </button>
     </div>
     <div id="kanbanboardContainer">
-      <div class="kanbanBoardColumn">
-        <p class="kanbanColumnHeading">Todo</p>
-        <?php
-        echo '        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
-              fill="#5531E5" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-';
+      <?php
+      $columns = ['Todo' => 'Todo', 'In-Progress' => 'In Progress', 'Done' => 'Done'];
+      foreach ($columns as $status => $title):
         ?>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
-              fill="#5531E5" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
+        <div class="kanbanBoardColumn <?php echo strtolower(str_replace(' ', '', $title)); ?>Column" ondrop="drop(event)"
+          ondragover="allowDrop(event)" data-status="<?php echo $status; ?>">
+          <p class="kanbanColumnHeading"><?php echo $title; ?></p>
+          <?php foreach ($tasks[$status] as $task): ?>
+            <div class="taskItem" draggable="true" ondragstart="drag(event)" id="task-<?php echo $task['TaskID']; ?>"
+              data-task-id="<?php echo $task['TaskID']; ?>">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
+                <path
+                  d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
+                  fill="#5531E5" />
+              </svg>
+              <div class="taskDetialsContainer">
+                <p class="taskTitle"><?php echo htmlspecialchars($task['TaskTitle']); ?></p>
+                <div>
+                  <p class="taskDetail" style="border-right: 1px solid">
+                    <?php echo date('Y/m/d', strtotime($task['DueDate'])); ?>
+                  </p>
+                  <p class="taskDetail" style="border-right: 1px solid">
+                    <?php echo $task['Priority']; ?>
+                  </p>
+                  <p class="taskDetail">
+                    <?php
+                    $categoryId = $task['CategoryID'];
+                    $categoryName = "N/A";
+                    if ($categoryId) {
+                      $catStmt = $conn->prepare("SELECT CategoryName FROM category WHERE CategoryID = ?");
+                      $catStmt->bind_param("i", $categoryId);
+                      $catStmt->execute();
+                      $catResult = $catStmt->get_result();
+                      if ($catRow = $catResult->fetch_assoc()) {
+                        $categoryName = $catRow['CategoryName'];
+                      }
+                      $catStmt->close();
+                    }
+                    echo htmlspecialchars($categoryName);
+                    ?>
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+          <?php endforeach; ?>
         </div>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
-              stroke="#5531E5" stroke-width="2" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
-              stroke="white" stroke-width="2" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="kanbanBoardColumn inProgressColumn">
-        <p class="kanbanColumnHeading">In Progress</p>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
-              fill="#5531E5" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
-              stroke="#5531E5" stroke-width="2" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
-              stroke="white" stroke-width="2" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="kanbanBoardColumn doneColumn">
-        <p class="kanbanColumnHeading">Done</p>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
-              fill="#5531E5" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
-              stroke="#5531E5" stroke-width="2" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-        <div class="taskItem">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
-            <path
-              d="M1 2C1 1.44772 1.44772 1 2 1H18C18.5523 1 19 1.44772 19 2V39C19 39.5523 18.5523 40 18 40H2C1.44772 40 1 39.5523 1 39V2Z"
-              stroke="white" stroke-width="2" />
-          </svg>
-          <div class="taskDetialsContainer">
-            <p class="taskTitle">Washing Dishes</p>
-            <div>
-              <p class="taskDetail" style="border-right: 1px solid">
-                2024/02/03
-              </p>
-              <p class="taskDetail" style="border-right: 1px solid">
-                11:59 pm
-              </p>
-              <p class="taskDetail">Uni</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php endforeach; ?>
     </div>
   </div>
 
@@ -405,6 +266,51 @@ require_once ('../config.php');
         document.getElementById("overlay").style.display = "none";
       }
     }
+
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      var taskId = ev.dataTransfer.getData("text");
+      var taskElement = document.getElementById(taskId);
+      var newStatus = ev.target.closest('.kanbanBoardColumn').dataset.status;
+
+      // Move the task visually
+      ev.target.closest('.kanbanBoardColumn').appendChild(taskElement);
+
+      // Update the database
+      updateTaskStatus(taskId.split('-')[1], newStatus);
+    }
+
+    function updateTaskStatus(taskId, newStatus) {
+      fetch('update_task_status.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: 'taskId=' + taskId + '&newStatus=' + newStatus
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            console.log('Task status updated successfully');
+          } else {
+            console.error('Failed to update task status');
+            // You might want to move the task back or show an error message
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    }
+
 
   </script>
 </body>
