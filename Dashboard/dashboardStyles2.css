@@ -72,8 +72,9 @@ header {
   display: flex;
   flex-direction: column;
   place-content: center;
-  justify-content: center;
-  justify-items: center;
+  justify-content: start;
+  justify-items: start;
+  vertical-align: top;
   width: 29%;
   gap: 20px;
 }

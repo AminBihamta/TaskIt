@@ -1,6 +1,8 @@
 <?php
 session_start();
+require_once ('../config.php');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +70,16 @@ session_start();
 
 
   </header>
-  <h1>Welcome Amin!</h1>
+
+  <h1>
+    <?php
+    echo "Welcome ";
+    echo $_SESSION['$userNickname'];
+    echo "!";
+    ?>
+  </h1>
+
+
   <div class="boxedDiv">
     <div class="space-evenly-items">
       <button style="width: 50%" onclick="openPopup()">
@@ -94,6 +105,28 @@ session_start();
     <div id="kanbanboardContainer">
       <div class="kanbanBoardColumn">
         <p class="kanbanColumnHeading">Todo</p>
+        <?php
+        echo '        <div class="taskItem">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
+            <path
+              d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
+              fill="#5531E5" />
+          </svg>
+          <div class="taskDetialsContainer">
+            <p class="taskTitle">Washing Dishes</p>
+            <div>
+              <p class="taskDetail" style="border-right: 1px solid">
+                2024/02/03
+              </p>
+              <p class="taskDetail" style="border-right: 1px solid">
+                11:59 pm
+              </p>
+              <p class="taskDetail">Uni</p>
+            </div>
+          </div>
+        </div>
+';
+        ?>
         <div class="taskItem">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
             <path

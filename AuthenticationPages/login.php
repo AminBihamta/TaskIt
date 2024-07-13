@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once ("config.php");
+require_once ("../config.php");
 
 // Get the email and password from the form
 $email = trim($_POST["Email"]);
@@ -11,7 +11,7 @@ $password = trim($_POST["Password"]);
 // Input validation
 if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
     // Check if the email exists
-    $stmt = $conn->prepare("SELECT password FROM user WHERE email = ?");
+    $stmt = $conn->prepare("SELECT password, NickName FROM user WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -23,7 +23,9 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
         $test = password_verify($password, $hashedPassword);
 
         if ($test == true) {
+            $nickname = $row["NickName"];
             $_SESSION['$userEmail'] = $email;
+            $_SESSION['$userNickname'] = $nickname;
             header("Location: ../Dashboard/dashboard.php");
             exit();
         } else {

@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once ("config.php");
+require_once ("../config.php");
 
 $nickname = trim($_POST["NickName"]);
 $email = trim($_POST["Email"]);
