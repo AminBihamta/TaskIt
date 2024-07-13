@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 11, 2024 at 07:36 PM
+-- Generation Time: Jul 13, 2024 at 10:44 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -46,7 +46,8 @@ CREATE TABLE `task` (
   `Priority` varchar(7) NOT NULL,
   `Status` varchar(15) NOT NULL,
   `TaskDescription` varchar(254) DEFAULT NULL,
-  `CategoryID` int(10) DEFAULT NULL
+  `CategoryID` int(10) DEFAULT NULL,
+  `UserEmail` varchar(254) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -58,9 +59,15 @@ CREATE TABLE `task` (
 CREATE TABLE `user` (
   `NickName` varchar(10) NOT NULL,
   `Email` varchar(254) NOT NULL,
-  `Password` varchar(60) NOT NULL,
-  `UserType` varchar(6) NOT NULL
+  `Password` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`NickName`, `Email`, `Password`) VALUES
+('Amin', 'bihamta@graduate.utm.my', '$2y$10$xmSy1RvNzOXwnZcewbc.q.rkvS82QP.XPWbBQP9zjzIPAJLrXxsZ6');
 
 --
 -- Indexes for dumped tables
@@ -78,7 +85,8 @@ ALTER TABLE `category`
 --
 ALTER TABLE `task`
   ADD PRIMARY KEY (`TaskID`),
-  ADD KEY `CategoryID` (`CategoryID`);
+  ADD KEY `CategoryID` (`CategoryID`),
+  ADD KEY `UserEmail` (`UserEmail`);
 
 --
 -- Indexes for table `user`
@@ -116,7 +124,8 @@ ALTER TABLE `category`
 -- Constraints for table `task`
 --
 ALTER TABLE `task`
-  ADD CONSTRAINT `CatgoryIDConstraint` FOREIGN KEY (`CategoryID`) REFERENCES `category` (`CategoryID`);
+  ADD CONSTRAINT `CatgoryIDConstraint` FOREIGN KEY (`CategoryID`) REFERENCES `category` (`CategoryID`),
+  ADD CONSTRAINT `EmailConstraint` FOREIGN KEY (`UserEmail`) REFERENCES `user` (`Email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
