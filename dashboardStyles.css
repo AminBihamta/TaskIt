@@ -234,7 +234,7 @@ datalist {
 .date input[type="date"],
 select,
 input[list="category-options"] {
-  width: 70%;
+  width: 250px;
   background: transparent;
   border: solid 1px var(--Primary-color);
   height: 80%;
