@@ -8,7 +8,7 @@
 </head>
 <body id="addTaskBody">
     <div class = "TaskContainer">
-        <form id = "addtask" action = "addtask.php" method="post">
+        <form id = "addtask" action = "addTask.php" method="post">
             <div class = "title-row">
                 <input type="text" id="taskTitle" placeholder=" Task Title Goes Here" name="TaskTitle" required>
                 <button class = "delete"><img src = "../media/deleteIcon.svg"></button>
@@ -58,12 +58,35 @@
             </div>
     
             <div class="add-button">
-                <button type="submit"> Add Task </button>
+                <button class= "button" type="submit"> Add Task </button>
             </div>
 
         </form>
         
     </div>
+    <script>
+        document.getElementById("addtask").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            const formData = new FormData(this);
+
+            fetch("addtask.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Task added successfully");
+                    window.parent.postMessage("closePopup", "*"); // Close the popup
+                } else {
+                    alert("Failed to add task: " + data.message);
+                }
+            })
+            .catch(error => {
+                alert("An error occurred: " + error.message);
+            });
+        });
+    </script>
     
 </body>
 </html>
