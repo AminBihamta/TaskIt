@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once("config.php");
+require_once ("config.php");
 
 // Get the email and password from the form
 $email = trim($_POST["Email"]);
@@ -24,7 +24,7 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
 
         if ($test == true) {
             $_SESSION['$userEmail'] = $email;
-            header("Location: ../dashboard.php");
+            header("Location: ../Dashboard/dashboard.php");
             exit();
         } else {
             echo "Incorrect password. Try again.";

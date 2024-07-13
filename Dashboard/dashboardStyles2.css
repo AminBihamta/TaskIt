@@ -281,11 +281,72 @@ textarea::placeholder {
   justify-content: flex-end;
 }
 
-button {
+.boxedDiv button {
   background: var(--Primary-color);
   border: none;
   padding: 10px 30px;
   border-radius: 20px;
   height: 40px;
   color: var(--Primary-Text-Color);
+}
+
+#themeButtonContainer {
+  display: flex;
+  align-items: flex-start;
+  /* Adjust this to your preference */
+}
+
+.theme-button {
+  width: 15px; /* Initial small size */
+  height: 15px; /* Initial small size */
+  border-radius: 50%;
+  border: 2px solid;
+  margin: 0 5px; /* Space between buttons */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 2px;
+}
+
+/* Adjust button size based on viewport width */
+@media (min-width: 768px) {
+  .theme-button {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+/* Pink Theme Button */
+.changeToPink {
+  background-color: #e531c8;
+}
+
+.changeToPink:hover {
+  background-color: #d420b2;
+}
+
+/* Cyan Theme Button */
+.changeToCyan {
+  background-color: #2cb6a5;
+}
+
+.changeToCyan:hover {
+  background-color: #229e8c;
+}
+
+/* Orange Theme Button */
+.changeToOrange {
+  background-color: #b67f2c;
+}
+
+.changeToOrange:hover {
+  background-color: #9f6d1e;
+}
+
+/* Purple Theme Button */
+.changeToPurple {
+  background-color: #5531e5;
+}
+
+.changeToPurple:hover {
+  background-color: #4729c0;
 }
