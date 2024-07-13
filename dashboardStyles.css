@@ -19,6 +19,12 @@ h1 {
   background-color: var(--Purple-Background-Fill);
 }
 
+#headerNavSection {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
 p,
 a {
   color: var(--Primary-Text-Color);
