@@ -20,7 +20,7 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
     // Attempt to execute the prepared statement
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['$userEmail'] = $email;
-        header("Location: dashboard.php");
+        header("Location:../dashboard.php");
         exit();;
     } else {
         echo "ERROR: Could not execute query: $sql. " . mysqli_error($conn);
