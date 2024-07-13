@@ -1,11 +1,12 @@
 <?php
 
 session_start(); // Start the session to access session variables
-require_once("../config.php");
+require_once ("../config.php");
 
 header('Content-Type: application/json'); // Set the content type to JSON
 
-function sendJsonResponse($success, $message) {
+function sendJsonResponse($success, $message)
+{
     echo json_encode(['success' => $success, 'message' => $message]);
     exit();
 }
@@ -58,12 +59,12 @@ if (isset($_POST['TaskTitle'], $_POST['DueDate'], $_POST['Priority'], $_POST['St
     }
 
     // Insert task into the database
-    $stmt = $conn->prepare("INSERT INTO task (TaskTitle, DueDate, Priority, Status, TaskDescription, CategoryID) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO task (TaskTitle, DueDate, Priority, Status, TaskDescription, Email, CategoryID) VALUES (?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         sendJsonResponse(false, 'Database query preparation failed: ' . $conn->error);
         exit();
     }
-    $stmt->bind_param("sssssi", $taskTitle, $dueDate, $priority, $status, $taskDescription, $categoryId);
+    $stmt->bind_param("ssssssi", $taskTitle, $dueDate, $priority, $status, $taskDescription, $userEmail, $categoryId);
 
     if ($stmt->execute()) {
         sendJsonResponse(true, 'Task added successfully');

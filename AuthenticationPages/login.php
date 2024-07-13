@@ -26,6 +26,9 @@ if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
             $nickname = $row["NickName"];
             $_SESSION['$userEmail'] = $email;
             $_SESSION['$userNickname'] = $nickname;
+
+
+
             header("Location: ../Dashboard/dashboard.php");
             exit();
         } else {

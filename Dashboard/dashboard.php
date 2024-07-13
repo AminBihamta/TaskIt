@@ -1,6 +1,10 @@
 <?php
 session_start();
 require_once ('../config.php');
+
+
+
+
 ?>
 
 
@@ -338,9 +342,6 @@ require_once ('../config.php');
               <label for="task-category"><img src="media/categoryIcon.svg" alt="Category"></label>
               <input list="category-options" id="categories" name="Category">
               <datalist id="category-options">
-                <option value="Category 1">
-                <option value="Category 2">
-                <option value="Category 3">
               </datalist>
             </div>
 
@@ -371,39 +372,39 @@ require_once ('../config.php');
 
 
   <script>
-    document.getElementById("addtask").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
-    const formData = new FormData(this);
-    fetch("addTask.php", {
-      method: "POST",
-      body: formData,
-      credentials: 'same-origin' // This line is important for maintaining the session
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        closePopup("overlay");
-        document.getElementById("addtask").reset();
-        alert("Task added successfully");
-      } else {
-        alert("Failed to add task: " + data.message);
-      }
-    })
-    .catch(error => {
-      alert("An error occurred: " + error.message);
+    document.getElementById("addtask").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting the traditional way
+      const formData = new FormData(this);
+      fetch("addTask.php", {
+        method: "POST",
+        body: formData,
+        credentials: 'same-origin' // This line is important for maintaining the session
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            closePopup("overlay");
+            document.getElementById("addtask").reset();
+            alert("Task added successfully");
+          } else {
+            alert("Failed to add task: " + data.message);
+          }
+        })
+        .catch(error => {
+          alert("An error occurred: " + error.message);
+        });
     });
-  });
-      function openPopup() {
-        document.getElementById("overlay").style.display = "flex";
+    function openPopup() {
+      document.getElementById("overlay").style.display = "flex";
+    }
+    function closePopup(event) {
+      if (event.target == document.getElementById("overlay")) {
+        document.getElementById("overlay").style.display = "none";
       }
-      function closePopup(event) {
-        if (event.target == document.getElementById("overlay")) {
-          document.getElementById("overlay").style.display = "none";
-        }
-        else if(document.getElementById(event)){
-          document.getElementById("overlay").style.display = "none";
-        }
+      else if (document.getElementById(event)) {
+        document.getElementById("overlay").style.display = "none";
       }
+    }
 
   </script>
 </body>
