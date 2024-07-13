@@ -138,7 +138,7 @@ button:hover {
   border-radius: 30px;
   width: 525px;
   height: 494px;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .taskDetialsContainer > div {

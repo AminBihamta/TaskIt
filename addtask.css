@@ -103,6 +103,10 @@ textarea::placeholder{
     justify-content:flex-end;
 }
 
+.button:hover{
+    cursor: pointer;
+}
+
 button{
     background: var(--Primary-color);
     border: none;
