@@ -2,37 +2,39 @@ function reloadPage() {
   location.reload();
 }
 
-document.getElementById("addtask").addEventListener("submit", function (event) {
-  event.preventDefault(); // Prevent the form from submitting the traditional way
-  const formData = new FormData(this);
-  fetch("addTask.php", {
-    method: "POST",
-    body: formData,
-    credentials: "same-origin", // This line is important for maintaining the session
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        closePopup("overlay");
-        document.getElementById("addtask").reset();
-        alert("Task added successfully");
-      } else {
-        alert("Failed to add task: " + data.message);
-      }
-    })
-    .catch((error) => {
-      alert("An error occurred: " + error.message);
-    });
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("addtask").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting the traditional way
+
+      const formData = new FormData(this);
+
+      fetch("addTask.php", {
+          method: "POST",
+          body: formData,
+          credentials: "same-origin" // This line is important for maintaining the session
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert("Task added successfully");
+              closePopup("overlay");
+              document.getElementById("addtask").reset();
+          } else {
+              alert("Failed to add task: " + data.message);
+          }
+      })
+      .catch(error => {
+          alert("An error occurred: " + error.message);
+      });
+  });
 });
+
 function openPopup() {
   document.getElementById("overlay").style.display = "flex";
 }
-function closePopup(event) {
-  if (event.target == document.getElementById("overlay")) {
-    document.getElementById("overlay").style.display = "none";
-  } else if (document.getElementById(event)) {
-    document.getElementById("overlay").style.display = "none";
-  }
+
+function closePopup(id) {
+  document.getElementById(id).style.display = "none";
 }
 
 function allowDrop(ev) {
