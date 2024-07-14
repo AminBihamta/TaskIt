@@ -27,5 +27,6 @@ if ($result) {
     echo json_encode(['success' => false, 'message' => 'Database update failed']);
 }
 
+
 $stmt->close();
 $conn->close();
