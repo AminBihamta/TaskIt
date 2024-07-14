@@ -100,10 +100,11 @@ header {
   background: var(--Todo-Background, #1c1c1c);
 }
 
-button {
+button,
+a {
   border-radius: 60px;
-  border: 1px solid var(--Primary-Color, #5531e5);
-  background: var(--Done-Background-Color, #2d1a7b);
+  border: 1px solid var(--Primary-color);
+  background: var(--Primary-color);
   padding: 10px 30px;
   color: var(--Primary-Text-Color, #fff);
   font-family: "Ek Mukta", Calibri;
@@ -138,12 +139,13 @@ button:hover {
 .popup {
   background: none;
   /* padding: 20px; */
-  border: solid #5531e5;
+  border: solid var(--Primary-color);
   border-width: 6px;
   border-radius: 30px;
   width: 525px;
   height: 494px;
   overflow: hidden;
+  background-color: var(--Purple-Background-Fill);
 }
 
 .taskDetialsContainer > div {
@@ -350,4 +352,56 @@ textarea::placeholder {
 
 .changeToPurple:hover {
   background-color: #4729c0;
+}
+
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 20%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  width: 100%;
+  z-index: 1;
+  padding-top: 20px;
+}
+
+.dropdown-content a {
+  color: var(--Primary-Text-Color);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  margin: 20px 0px;
+  width: 80%;
+  border: var(--Primary-color);
+  background-color: var(--Done-Background-color);
+}
+
+.dropdown-content a:hover {
+}
+
+.dropdown:hover .dropdown-content {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }
