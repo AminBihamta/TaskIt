@@ -55,6 +55,11 @@ header {
   gap: 10px;
 }
 
+.filter {
+  color: var(--Primary-Text-Color);
+  font-size: 20px;
+}
+
 #kanbanboardContainer {
   display: flex;
   flex-direction: row;

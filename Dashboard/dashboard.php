@@ -20,7 +20,6 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-
 ?>
 
 
@@ -61,7 +60,6 @@ $stmt->close();
         d="M98.3711 30.4697L86.8969 18.9972C86.2075 18.308 86.2075 17.1905 86.8969 16.5012L89.3933 14.0051C90.0826 13.3158 91.2004 13.3158 91.8897 14.0051L99.6193 21.7334L120.156 2.24157C120.845 1.55232 123.207 -0.501265 125.56 1.78677L128.001 4.40167C128.001 4.40167 128.001 4.40167 126.83 5.55256L100.868 30.4697C100.178 31.159 99.0604 31.159 98.3711 30.4697Z"
         fill="#5531E5" />
     </svg>
-    <!-- buttons for changing themes-->
     <form id="themeButtonContainer">
       <button type="button" style="width: 30px; height: 30px" class="theme-button changeToPink"></button>
       <button type="button" style="width: 30px; height: 30px" class="theme-button changeToCyan"></button>
@@ -106,18 +104,50 @@ $stmt->close();
       <button style="width: 50%" onclick="openPopup()">
         + Add a new task
       </button>
-      <button style="width: 20%">
-        <svg style="padding-top: 3px" xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18"
-          fill="none">
-          <path
-            d="M0.916946 2.52429L7.6731 10.3847V16.6154L11.8269 13.8462V10.3847L18.5831 2.52429C18.968 2.0743 18.6447 1.38477 18.0479 1.38477H1.45209C0.855332 1.38477 0.532028 2.0743 0.916946 2.52429Z"
-            stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>Filter
-      </button>
+
+      <div class="dropdown filter">
+        <button class="dropbtn"> <svg style="padding-top: 3px" xmlns="http://www.w3.org/2000/svg" width="20" height="18"
+            viewBox="0 0 20 18" fill="none">
+            <path
+              d="M0.916946 2.52429L7.6731 10.3847V16.6154L11.8269 13.8462V10.3847L18.5831 2.52429C18.968 2.0743 18.6447 1.38477 18.0479 1.38477H1.45209C0.855332 1.38477 0.532028 2.0743 0.916946 2.52429Z"
+              stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>Filter
+        </button>
+        <div class="dropdown-content">
+
+          <form action="filter.php" method="POST">
+            <input type="checkbox" id="option" name="option" value="option">
+            <label for="option">Meeting</label><br>
+            <?php
+            session_start();
+            require_once ('../config.php');
+
+            $userEmail = $_SESSION['$userEmail'];
+
+            $userEmail = $_SESSION['$userEmail'];
+            $sql2 = "SELECT * FROM category WHERE Email = ?";
+            $stmt = $conn->prepare($sql2);
+            $stmt->bind_param("s", $userEmail);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+              $categoryId = $row['CategoryID'];
+              $categoryName = $row['CategoryName'];
+
+              echo "<input type=\"checkbox\" id=\"category_$categoryId\" name=\"category[]\" value=\"$categoryId\">\n";
+              echo "<label for=\"category_$categoryId\">$categoryName</label><br>\n";
+            }
+
+            $stmt->close();
+            ?>
+
+          </form>
+        </div>
+      </div>
 
       <div class="dropdown">
-        <button class="dropbtn"> <svg style="padding-top: 5px" xmlns="http://www.w3.org/2000/svg" width="23" height="14"
-            viewBox="0 0 23 14" fill="none">
+        <button class="dropbtn"> <svg style="padding-top: 5px" width="23" height="14" viewBox="0 0 23 14" fill="none">
             <path
               d="M13.0278 13.5H10.4722C10.104 13.5 9.80556 13.2015 9.80556 12.8333C9.80556 12.4651 10.104 12.1667 10.4722 12.1667H13.0278C13.396 12.1667 13.6944 12.4651 13.6944 12.8333C13.6944 13.2015 13.396 13.5 13.0278 13.5ZM21.5833 1.83333H1.91667C1.54848 1.83333 1.25 1.53486 1.25 1.16667C1.25 0.798476 1.54848 0.5 1.91667 0.5H21.5833C21.9515 0.5 22.25 0.798477 22.25 1.16667C22.25 1.53486 21.9515 1.83333 21.5833 1.83333ZM17.9167 7.66667H5.58333C5.21514 7.66667 4.91667 7.36819 4.91667 7C4.91667 6.63181 5.21514 6.33333 5.58333 6.33333H17.9167C18.2849 6.33333 18.5833 6.63181 18.5833 7C18.5833 7.36819 18.2849 7.66667 17.9167 7.66667Z"
               fill="white" stroke="white" />
