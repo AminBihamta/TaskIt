@@ -115,34 +115,7 @@ $stmt->close();
         </button>
         <div class="dropdown-content">
 
-          <form action="filter.php" method="POST">
-            <input type="checkbox" id="option" name="option" value="option">
-            <label for="option">Meeting</label><br>
-            <?php
-            session_start();
-            require_once ('../config.php');
 
-            $userEmail = $_SESSION['$userEmail'];
-
-            $userEmail = $_SESSION['$userEmail'];
-            $sql2 = "SELECT * FROM category WHERE Email = ?";
-            $stmt = $conn->prepare($sql2);
-            $stmt->bind_param("s", $userEmail);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            while ($row = $result->fetch_assoc()) {
-              $categoryId = $row['CategoryID'];
-              $categoryName = $row['CategoryName'];
-
-              echo "<input type=\"checkbox\" id=\"category_$categoryId\" name=\"category[]\" value=\"$categoryId\">\n";
-              echo "<label for=\"category_$categoryId\">$categoryName</label><br>\n";
-            }
-
-            $stmt->close();
-            ?>
-
-          </form>
         </div>
       </div>
 
