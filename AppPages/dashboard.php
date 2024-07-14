@@ -268,7 +268,7 @@ $stmt->close();
         <input type="hidden" id="updateTaskId" name="updateTaskId" value="">
           <div class="title-row">
             <input type="text" id="updateTaskTitle" name="updateTaskTitle" required>
-            <button class="delete"><img src="../media/deleteIcon.svg"></button>
+            <button class="delete-task-button" type="button" onclick="deleteTask()"><img src="../media/deleteIcon.svg"></button>
           </div>
 
           <div class="form-row1">

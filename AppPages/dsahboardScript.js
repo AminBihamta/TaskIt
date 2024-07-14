@@ -55,18 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(data => {
         if (data.success) {
             alert(data.message);
-            closeUpdatePopup();
+            closeUpdate();
             location.reload(); // Reload the page to show updated task
         } else {
             alert("No Updates Made: " + data.message);
-            closeUpdatePopup();
+            closeUpdate();
         }
     })
     .catch(error => {
         alert("An error occurred: " + error.message);
     });
   });
-  
+  document.getElementById("updateOverlay").addEventListener("click", function(event) {
+    closeUpdatePopup(event);
+  });
 
 
 });
@@ -181,7 +183,46 @@ function closeUpdatePopup(event) {
   }
 }
 
-function closeUpdatePopup() {
+function closeUpdate() {
   document.getElementById("updateOverlay").style.display = "none";
 }
+
+// Function to delete a task
+function deleteTask(taskId) {
+  if (confirm("Are you sure you want to delete this task?")) {
+      fetch("deleteTask.php", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `taskId=${taskId}`,
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              alert(data.message);
+              closeUpdatePopup();
+              location.reload(); // Reload the page to reflect the deletion
+          } else {
+              alert("Error deleting task: " + data.message);
+          }
+      })
+      .catch(error => {
+          alert("An error occurred: " + error.message);
+      });
+  }
+}
+
+// Function to close the delete popup
+function closeDeletePopup() {
+  document.getElementById("deleteOverlay").style.display = "none";
+}
+
+// Assuming you have a button with class 'delete-task-button' for deleting tasks
+document.querySelectorAll('.delete-task-button').forEach(button => {
+  button.addEventListener('click', function() {
+      const taskId = this.dataset.taskId; // Assuming the button has a data attribute for taskId
+      deleteTask(taskId);
+  });
+});
 
