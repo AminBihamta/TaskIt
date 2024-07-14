@@ -34,7 +34,7 @@ function openPopup() {
 }
 
 function closePopup(id) {
-  document.getElementById(id).style.display = "none";
+  document.getElementById("overlay").style.display = "none";
 }
 
 function allowDrop(ev) {
@@ -80,4 +80,53 @@ function updateTaskStatus(taskId, newStatus) {
     });
 
   setTimeout(reloadPage, 100);
+}
+
+function openUpdatePopup(TaskID) {
+  fetch(`getTaskDetails.php?taskId=${TaskID}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        populateUpdateForm(data.task);
+        document.getElementById("updateOverlay").style.display = "flex";
+      } else {
+        alert("Failed to fetch task details: " + data.message);
+      }
+    })
+    .catch(error => {
+      alert("An error occurred: " + error.message);
+    });
+}
+
+function populateUpdateForm(task) {
+  let missingFields = [];
+  const fields = [
+    { id: "updateTaskTitle", key: "TaskTitle" },
+    { id: "update-task-date", key: "DueDate" },
+    { id: "update-task-priority", key: "Priority" },
+    { id: "update-task-status", key: "Status" },
+    { id: "update-task-desc", key: "TaskDescription" },
+    { id: "update-categories", key: "CategoryName" }
+  ];
+
+  document.getElementById("updateTaskId").value = task.TaskID;
+
+  fields.forEach(field => {
+    const element = document.getElementById(field.id);
+    if (element) {
+      element.value = task[field.key] || '';
+    } else {
+      missingFields.push(field.id);
+    }
+  });
+
+  if (missingFields.length > 0) {
+    alert("The following fields are missing: " + missingFields.join(", "));
+  }
+}
+
+function closeUpdatePopup(event) {
+  if (event.target == document.getElementById("updateOverlay")) {
+    document.getElementById("updateOverlay").style.display = "none";
+  }
 }

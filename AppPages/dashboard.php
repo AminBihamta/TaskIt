@@ -162,7 +162,7 @@ $stmt->close();
           ondragover="allowDrop(event)" data-status="<?php echo $status; ?>">
           <p class="kanbanColumnHeading"><?php echo $title; ?></p>
           <?php foreach ($tasks[$status] as $task): ?>
-            <div class="taskItem" draggable="true" ondragstart="drag(event)" id="task-<?php echo $task['TaskID']; ?>"
+            <div class="taskItem" draggable="true" ondragstart="drag(event)" id="task-<?php echo $task['TaskID']; ?>" onclick="openUpdatePopup(<?php echo $task['TaskID']; ?>)"
               data-task-id="<?php echo $task['TaskID']; ?>">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
                 <path
@@ -259,7 +259,66 @@ $stmt->close();
         </form>
 
       </div>
-    </div><!-- /.overlay -->
+    </div>
+  </div>
+
+  <div id="updateOverlay" class="overlay" onclick="closePopup(event)">
+    <div class="popup">
+      <div class="TaskContainer">
+        <form id="updatetask" action="updateTask.php" method="post">
+        <input type="hidden" id="updateTaskId" name="updateTaskId" value="">
+          <div class="title-row">
+            <input type="text" id="updateTaskTitle" name="updateTaskTitle" required>
+            <button class="delete"><img src="../media/deleteIcon.svg"></button>
+          </div>
+
+          <div class="form-row1">
+            <div class="date">
+              <label for="update-task-date"><img src="../media/Calendaricon.svg" alt="Calender"></label>
+              <input required type="date" id="update-task-date" name="update-task-date">
+            </div>
+
+            <div class="priority">
+              <label for="update-task-priority"><img src="../media/priorityIcon.svg" alt="Priority"></label>
+              <select required id="update-task-priority" name="update-task-priority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row2">
+            <div class="category">
+              <label for="update-task-category"><img src="../media/categoryIcon.svg" alt="Category"></label>
+              <input list="category-options" id="update-categories" name="update-categories">
+              <datalist id="category-options">
+              </datalist>
+            </div>
+
+            <div class="status">
+              <label for="update-task-status"><img src="../media/statusIcon.svg" alt="Status"></label>
+              <select required id="update-task-status" name="update-task-status" placeholder="Status">
+                <option value="Todo">Todo</option>
+                <option value="In-Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
+              </select>
+            </div>
+          </div>
+          <div class="notes-row">
+            <label for="update-task-desc"><img src="../media/descriptionIcon.svg" alt="desc"></label>
+            <textarea id="update-task-desc" name="update-task-desc" placeholder="Description"></textarea>
+          </div>
+
+          <div class="add-button">
+            <button class="button" type="submit"> Submit Task </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
   </div>
 
 </body>
