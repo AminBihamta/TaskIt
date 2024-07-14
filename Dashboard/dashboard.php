@@ -179,17 +179,17 @@ $stmt->close();
         <form id="addtask" action="addTask.php" method="post">
           <div class="title-row">
             <input type="text" id="taskTitle" placeholder="Task Title Goes Here" name="TaskTitle" required>
-            <button class="delete"><img src="media/deleteIcon.svg"></button>
+            <button class="delete"><img src="../media/deleteIcon.svg"></button>
           </div>
 
           <div class="form-row1">
             <div class="date">
-              <label for="task-date"><img src="media/Calendaricon.svg" alt="Calender"></label>
+              <label for="task-date"><img src="../media/Calendaricon.svg" alt="Calender"></label>
               <input type="date" id="task-date" name="DueDate">
             </div>
 
             <div class="priority">
-              <label for="task-priority"><img src="media/priorityIcon.svg" alt="Priority"></label>
+              <label for="task-priority"><img src="../media/priorityIcon.svg" alt="Priority"></label>
               <select id="task-priority" name="Priority">
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
@@ -200,14 +200,14 @@ $stmt->close();
 
           <div class="form-row2">
             <div class="category">
-              <label for="task-category"><img src="media/categoryIcon.svg" alt="Category"></label>
+              <label for="task-category"><img src="../media/categoryIcon.svg" alt="Category"></label>
               <input list="category-options" id="categories" name="Category">
               <datalist id="category-options">
               </datalist>
             </div>
 
             <div class="status">
-              <label for="task-status"><img src="media/statusIcon.svg" alt="Status"></label>
+              <label for="task-status"><img src="../media/statusIcon.svg" alt="Status"></label>
               <select id="task-status" name="Status" placeholder="Status">
                 <option value="Todo">Todo</option>
                 <option value="In-Progress">In Progress</option>
@@ -217,7 +217,7 @@ $stmt->close();
             </div>
           </div>
           <div class="notes-row">
-            <label for="task-desc"><img src="media/descriptionIcon.svg" alt="desc"></label>
+            <label for="task-desc"><img src="../media/descriptionIcon.svg" alt="desc"></label>
             <textarea id="task-desc" name="taskDescription" placeholder="Description"></textarea>
           </div>
 
