@@ -123,9 +123,27 @@ $stmt->close();
           </svg>Sort
         </button>
         <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+          <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13" viewBox="0 0 11 13" fill="none">
+              <path
+                d="M10.1578 8.96221L6.32497 12.6675C6.11325 12.8892 5.82488 13 5.5073 13C5.18972 13 4.905 12.8892 4.68963 12.6675L0.842216 8.96221C0.385928 8.52259 0.385928 7.80591 0.842216 7.3663C1.2985 6.92668 2.03586 6.92668 2.49215 7.3663L4.3319 9.14692V1.13043C4.3319 0.50611 4.8539 0 5.5 0C6.1461 0 6.6681 0.50611 6.6681 1.13043V9.14692L8.50785 7.3663C8.96414 6.92668 9.7015 6.92668 10.1578 7.3663C10.6141 7.80591 10.6141 8.5189 10.1578 8.96221Z"
+                fill="white" />
+            </svg>Date</a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13" viewBox="0 0 11 13"
+              fill="none">
+              <path
+                d="M0.842216 4.03779L4.67503 0.332481C4.88675 0.110827 5.17512 0 5.4927 0C5.81028 0 6.095 0.110827 6.31037 0.332481L10.1578 4.03779C10.6141 4.47741 10.6141 5.19409 10.1578 5.6337C9.7015 6.07332 8.96414 6.07332 8.50785 5.6337L6.6681 3.85308L6.6681 11.8696C6.6681 12.4939 6.1461 13 5.5 13C4.8539 13 4.3319 12.4939 4.3319 11.8696L4.3319 3.85308L2.49215 5.6337C2.03586 6.07332 1.2985 6.07332 0.842216 5.6337C0.385928 5.19409 0.385928 4.4811 0.842216 4.03779Z"
+                fill="white" />
+            </svg>Date</a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13" viewBox="0 0 11 13"
+              fill="none">
+              <path
+                d="M10.1578 8.96221L6.32497 12.6675C6.11325 12.8892 5.82488 13 5.5073 13C5.18972 13 4.905 12.8892 4.68963 12.6675L0.842216 8.96221C0.385928 8.52259 0.385928 7.80591 0.842216 7.3663C1.2985 6.92668 2.03586 6.92668 2.49215 7.3663L4.3319 9.14692V1.13043C4.3319 0.50611 4.8539 0 5.5 0C6.1461 0 6.6681 0.50611 6.6681 1.13043V9.14692L8.50785 7.3663C8.96414 6.92668 9.7015 6.92668 10.1578 7.3663C10.6141 7.80591 10.6141 8.5189 10.1578 8.96221Z"
+                fill="white" />
+            </svg>Priority</a><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
+              viewBox="0 0 11 13" fill="none">
+              <path
+                d="M0.842216 4.03779L4.67503 0.332481C4.88675 0.110827 5.17512 0 5.4927 0C5.81028 0 6.095 0.110827 6.31037 0.332481L10.1578 4.03779C10.6141 4.47741 10.6141 5.19409 10.1578 5.6337C9.7015 6.07332 8.96414 6.07332 8.50785 5.6337L6.6681 3.85308L6.6681 11.8696C6.6681 12.4939 6.1461 13 5.5 13C4.8539 13 4.3319 12.4939 4.3319 11.8696L4.3319 3.85308L2.49215 5.6337C2.03586 6.07332 1.2985 6.07332 0.842216 5.6337C0.385928 5.19409 0.385928 4.4811 0.842216 4.03779Z"
+                fill="white" />
+            </svg>Priority</a>
+
         </div>
       </div>
     </div>
@@ -192,12 +210,12 @@ $stmt->close();
           <div class="form-row1">
             <div class="date">
               <label for="task-date"><img src="../media/Calendaricon.svg" alt="Calender"></label>
-              <input type="date" id="task-date" name="DueDate">
+              <input required type="date" id="task-date" name="DueDate">
             </div>
 
             <div class="priority">
               <label for="task-priority"><img src="../media/priorityIcon.svg" alt="Priority"></label>
-              <select id="task-priority" name="Priority">
+              <select required id="task-priority" name="Priority">
                 <option value="High">High</option>
                 <option value="Medium">Medium</option>
                 <option value="Low">Low</option>
@@ -208,14 +226,14 @@ $stmt->close();
           <div class="form-row2">
             <div class="category">
               <label for="task-category"><img src="../media/categoryIcon.svg" alt="Category"></label>
-              <input list="category-options" id="categories" name="Category">
+              <input readonly list="category-options" id="categories" name="Category">
               <datalist id="category-options">
               </datalist>
             </div>
 
             <div class="status">
               <label for="task-status"><img src="../media/statusIcon.svg" alt="Status"></label>
-              <select id="task-status" name="Status" placeholder="Status">
+              <select required id="task-status" name="Status" placeholder="Status">
                 <option value="Todo">Todo</option>
                 <option value="In-Progress">In Progress</option>
                 <option value="Done">Done</option>
