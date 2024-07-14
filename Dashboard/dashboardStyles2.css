@@ -284,7 +284,8 @@ textarea::placeholder {
   justify-content: flex-end;
 }
 
-.boxedDiv button {
+.boxedDiv button,
+.add-button button {
   background: var(--Primary-color);
   border: none;
   padding: 10px 30px;

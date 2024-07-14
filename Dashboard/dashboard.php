@@ -230,7 +230,7 @@ $stmt->close();
           <div class="form-row2">
             <div class="category">
               <label for="task-category"><img src="../media/categoryIcon.svg" alt="Category"></label>
-              <input readonly list="category-options" id="categories" name="Category">
+              <input list="category-options" id="categories" name="Category">
               <datalist id="category-options">
               </datalist>
             </div>
