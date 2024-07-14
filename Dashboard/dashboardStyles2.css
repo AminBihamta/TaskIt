@@ -100,7 +100,8 @@ header {
   background: var(--Todo-Background, #1c1c1c);
 }
 
-button {
+.boxedDiv a,
+.boxedDiv button {
   border-radius: 60px;
   border: 1px solid var(--Primary-color);
   background: var(--Primary-color);
