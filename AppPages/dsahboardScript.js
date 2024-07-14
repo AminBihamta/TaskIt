@@ -33,6 +33,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const formData = new FormData(this);
 
+    const updatedData = Object.fromEntries(formData.entries());
+
+    // Check if any changes were made
+    const hasChanges = Object.keys(updatedData).some(key => {
+        return updatedData[key] !== originalTaskData[key];
+    });
+
+    if (!hasChanges) {
+        // No changes were made, just close the overlay
+        closeUpdatePopup();
+        return;
+    }
+
     fetch("updateTask.php", {
         method: "POST",
         body: formData,
@@ -45,7 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
             closeUpdatePopup();
             location.reload(); // Reload the page to show updated task
         } else {
-            alert("Failed to update task: " + data.message);
+            alert("No Updates Made: " + data.message);
+            closeUpdatePopup();
         }
     })
     .catch(error => {
@@ -110,6 +124,8 @@ function updateTaskStatus(taskId, newStatus) {
   setTimeout(reloadPage, 100);
 }
 
+
+
 function openUpdatePopup(taskId) {
   fetch(`getTaskDetails.php?taskId=${taskId}`)
     .then(response => response.json())
@@ -126,7 +142,12 @@ function openUpdatePopup(taskId) {
     });
 }
 
+let originalTaskData = {};
+
 function populateUpdateForm(task) {
+
+  originalTaskData = {...task }; // Make a copy of the task data for comparison purposes
+
   let missingFields = [];
   const fields = [
     {id: "updateTaskId", key: "TaskID"},

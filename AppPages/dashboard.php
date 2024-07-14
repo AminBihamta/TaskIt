@@ -210,7 +210,6 @@ $stmt->close();
         <form id="addtask" action="addTask.php" method="post">
           <div class="title-row">
             <input type="text" id="taskTitle" placeholder="Task Title Goes Here" name="TaskTitle" required>
-            <button class="delete"><img src="../media/deleteIcon.svg"></button>
           </div>
 
           <div class="form-row1">
