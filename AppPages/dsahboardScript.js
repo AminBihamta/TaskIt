@@ -27,6 +27,34 @@ document.addEventListener('DOMContentLoaded', function() {
           alert("An error occurred: " + error.message);
       });
   });
+
+  document.getElementById("updatetask").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+
+    const formData = new FormData(this);
+
+    fetch("updateTask.php", {
+        method: "POST",
+        body: formData,
+        credentials: "same-origin" // This line is important for maintaining the session
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            closeUpdatePopup();
+            location.reload(); // Reload the page to show updated task
+        } else {
+            alert("Failed to update task: " + data.message);
+        }
+    })
+    .catch(error => {
+        alert("An error occurred: " + error.message);
+    });
+  });
+  
+
+
 });
 
 function openPopup() {
@@ -82,8 +110,8 @@ function updateTaskStatus(taskId, newStatus) {
   setTimeout(reloadPage, 100);
 }
 
-function openUpdatePopup(TaskID) {
-  fetch(`getTaskDetails.php?taskId=${TaskID}`)
+function openUpdatePopup(taskId) {
+  fetch(`getTaskDetails.php?taskId=${taskId}`)
     .then(response => response.json())
     .then(data => {
       if (data.success) {
@@ -101,6 +129,7 @@ function openUpdatePopup(TaskID) {
 function populateUpdateForm(task) {
   let missingFields = [];
   const fields = [
+    {id: "updateTaskId", key: "TaskID"},
     { id: "updateTaskTitle", key: "TaskTitle" },
     { id: "update-task-date", key: "DueDate" },
     { id: "update-task-priority", key: "Priority" },
@@ -109,7 +138,7 @@ function populateUpdateForm(task) {
     { id: "update-categories", key: "CategoryName" }
   ];
 
-  document.getElementById("updateTaskId").value = task.TaskID;
+
 
   fields.forEach(field => {
     const element = document.getElementById(field.id);
@@ -130,3 +159,8 @@ function closeUpdatePopup(event) {
     document.getElementById("updateOverlay").style.display = "none";
   }
 }
+
+function closeUpdatePopup() {
+  document.getElementById("updateOverlay").style.display = "none";
+}
+
