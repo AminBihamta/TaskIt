@@ -417,3 +417,20 @@ textarea::placeholder {
 
 .dropdown:hover .dropbtn {
 }
+
+table {
+  color: var(--Primary-Text-Color);
+  display: flex;
+  justify-content: center;
+  border-collapse: collapse;
+  border-radius: 20px;
+  margin-top: 40px;
+}
+
+td,
+th {
+  border: 1px solid var(--Primary-color);
+  padding: 20px;
+  border-collapse: collapse;
+  text-align: center;
+}

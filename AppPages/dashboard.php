@@ -69,7 +69,7 @@ $stmt->close();
 
 
     <div>
-      <a href="">All Tasks</a>
+      <a href="alltasks.php">All Tasks</a>
       <svg xmlns="http://www.w3.org/2000/svg" width="45" height="46" viewBox="0 0 45 46" fill="none">
         <g clip-path="url(#clip0_274_53)">
           <path
@@ -104,7 +104,7 @@ $stmt->close();
       <button style="width: 50%" onclick="openPopup()">
         + Add a new task
       </button>
-
+      <!---
       <div class="dropdown filter">
         <button class="dropbtn"> <svg style="padding-top: 3px" xmlns="http://www.w3.org/2000/svg" width="20" height="18"
             viewBox="0 0 20 18" fill="none">
@@ -114,11 +114,9 @@ $stmt->close();
           </svg>Filter
         </button>
         <div class="dropdown-content">
-
-
         </div>
       </div>
-
+-->
       <div class="dropdown">
         <button class="dropbtn"> <svg style="padding-top: 5px" width="23" height="14" viewBox="0 0 23 14" fill="none">
             <path

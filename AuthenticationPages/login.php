@@ -5,7 +5,7 @@ session_start();
 require_once ("../config.php");
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the email and password from the form
     $email = trim($_POST["Email"]);
     $password = trim($_POST["Password"]);
@@ -29,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['$userEmail'] = $email;
                 $_SESSION['$userNickname'] = $nickname;
 
-                header("Location: ../Dashboard/dashboard.php");
+                header("Location: ../AppPages/dashboard.php");
                 exit();
             } else {
                 $error = "Incorrect password. Try again.";
@@ -50,17 +50,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <script>
-var phpError = "<?php echo addslashes($error); ?>";
-if (phpError) {
-    alert(phpError);
-    if (document.querySelector('input[name="Email"]')) {
+    var phpError = "<?php echo addslashes($error); ?>";
+    if (phpError) {
+        alert(phpError);
+        if (document.querySelector('input[name="Email"]')) {
             document.querySelector('input[name="Email"]').value = '';
         }
         if (document.querySelector('input[name="Password"]')) {
             document.querySelector('input[name="Password"]').value = '';
         }
-        
+
         // Redirect back to the login page
         window.location.href = '../index.html';
-}
+    }
 </script>
