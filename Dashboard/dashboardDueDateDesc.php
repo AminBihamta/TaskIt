@@ -3,7 +3,7 @@ session_start();
 require_once ('../config.php');
 
 $userEmail = $_SESSION['$userEmail'];
-$sql = "SELECT * FROM task WHERE Email = ? ORDER BY DueDate ASC";
+$sql = "SELECT * FROM task WHERE Email = ? ORDER BY DueDate desc";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $userEmail);
 $stmt->execute();
@@ -113,21 +113,14 @@ $stmt->close();
             stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
         </svg>Filter
       </button>
-
-      <div class="dropdown">
-        <button class="dropbtn"> <svg style="padding-top: 5px" xmlns="http://www.w3.org/2000/svg" width="23" height="14"
-            viewBox="0 0 23 14" fill="none">
-            <path
-              d="M13.0278 13.5H10.4722C10.104 13.5 9.80556 13.2015 9.80556 12.8333C9.80556 12.4651 10.104 12.1667 10.4722 12.1667H13.0278C13.396 12.1667 13.6944 12.4651 13.6944 12.8333C13.6944 13.2015 13.396 13.5 13.0278 13.5ZM21.5833 1.83333H1.91667C1.54848 1.83333 1.25 1.53486 1.25 1.16667C1.25 0.798476 1.54848 0.5 1.91667 0.5H21.5833C21.9515 0.5 22.25 0.798477 22.25 1.16667C22.25 1.53486 21.9515 1.83333 21.5833 1.83333ZM17.9167 7.66667H5.58333C5.21514 7.66667 4.91667 7.36819 4.91667 7C4.91667 6.63181 5.21514 6.33333 5.58333 6.33333H17.9167C18.2849 6.33333 18.5833 6.63181 18.5833 7C18.5833 7.36819 18.2849 7.66667 17.9167 7.66667Z"
-              fill="white" stroke="white" />
-          </svg>Sort
-        </button>
-        <div class="dropdown-content">
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
-      </div>
+      <button style="width: 20%">
+        <svg style="padding-top: 5px" xmlns="http://www.w3.org/2000/svg" width="23" height="14" viewBox="0 0 23 14"
+          fill="none">
+          <path
+            d="M13.0278 13.5H10.4722C10.104 13.5 9.80556 13.2015 9.80556 12.8333C9.80556 12.4651 10.104 12.1667 10.4722 12.1667H13.0278C13.396 12.1667 13.6944 12.4651 13.6944 12.8333C13.6944 13.2015 13.396 13.5 13.0278 13.5ZM21.5833 1.83333H1.91667C1.54848 1.83333 1.25 1.53486 1.25 1.16667C1.25 0.798476 1.54848 0.5 1.91667 0.5H21.5833C21.9515 0.5 22.25 0.798477 22.25 1.16667C22.25 1.53486 21.9515 1.83333 21.5833 1.83333ZM17.9167 7.66667H5.58333C5.21514 7.66667 4.91667 7.36819 4.91667 7C4.91667 6.63181 5.21514 6.33333 5.58333 6.33333H17.9167C18.2849 6.33333 18.5833 6.63181 18.5833 7C18.5833 7.36819 18.2849 7.66667 17.9167 7.66667Z"
+            fill="white" stroke="white" />
+        </svg>Sort
+      </button>
     </div>
     <div id="kanbanboardContainer">
       <?php
