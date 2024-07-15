@@ -80,7 +80,7 @@ main {
 }
 
 #add-user-btn, #filter-btn {
-    background-color: rgba(85, 49, 229, 0.5);
+    background-color: rgb(85, 49, 229);
     color: var(--Primary-Text-Color);
     border: 1px solid var(--Primary-color);
     padding: 0.5rem 1rem;
@@ -99,13 +99,17 @@ main {
 
 #search-user {
     flex: 1; /* Ensure the input stretches within the container */
-    background-color: rgba(85, 49, 229, 0.5);
+    background-color: rgb(85, 49, 229);
     color: var(--Primary-Text-Color);
     border: 1px solid var(--Primary-color);
     padding: 0.5rem 1rem;
     border-radius: 25px;
     position: relative;
     flex-grow: 1;
+}
+
+::placeholder{
+    color: white;
 }
 
 #search-bar-form{
@@ -420,3 +424,4 @@ td {
 .filter-popup-content button:hover {
     background-color: #482ac1;;
 }
+
