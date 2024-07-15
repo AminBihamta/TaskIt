@@ -22,11 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $checkStmt->fetch();
     $checkStmt->close();
 
-    if ($count === 0) {
-        echo json_encode(['success' => false, 'message' => 'No task found with ID: ' . $taskId . ' for this user']);
-        exit();
-    }
-
     // If the task exists and belongs to the user, proceed with deletion
     $sql = "DELETE FROM task WHERE TaskID = ? AND Email = ?";
     $stmt = $conn->prepare($sql);
@@ -39,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo json_encode(['success' => false, 'message' => 'Failed to delete the task']);
         }
     } else {
-        echo json_encode(['success' => false, 'message' => 'Error deleting task: ' . $conn->error]);
+        echo json_encode(['success' => false, 'message' => 'Task Deleted: ' . $conn->error]);
     }
 
     $stmt->close();

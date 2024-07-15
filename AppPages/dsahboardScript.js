@@ -99,10 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
     closeUpdatePopup(event);
   });
 
-  document.querySelector('.delete-task-button').addEventListener('click', function(event) {
-    event.preventDefault();
-    deleteTask();
-  });
 
 });
 
@@ -252,7 +248,7 @@ function deleteTask() {
         closeUpdate();
         location.reload(); // Reload the page to reflect the deletion
       } else {
-        alert("Error deleting task: " + data.message);
+        alert("Task Deleted: " + data.message);
       }
     })
     .catch(error => {
@@ -268,9 +264,6 @@ function closeDeletePopup() {
 
 // Assuming you have a button with class 'delete-task-button' for deleting tasks
 document.querySelectorAll('.delete-task-button').forEach(button => {
-  button.addEventListener('click', function() {
-      const taskId = this.dataset.taskId; // Assuming the button has a data attribute for taskId
-      deleteTask(taskId);
-  });
+  button.addEventListener('click', deleteTask);
 });
 
