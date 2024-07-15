@@ -2,12 +2,14 @@ function reloadPage() {
   location.reload();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   const addTaskForm = document.getElementById("addtask");
   const overlay = document.getElementById("overlay");
-  const openPopupButton = document.querySelector('button[onclick="openPopup()"]');
+  const openPopupButton = document.querySelector(
+    'button[onclick="openPopup()"]'
+  );
 
-  openPopupButton.removeAttribute('onclick');
+  openPopupButton.removeAttribute("onclick");
 
   addTaskForm.addEventListener("submit", function (event) {
     event.preventDefault(); // Prevent the form from submitting the traditional way
@@ -17,33 +19,33 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch("addTask.php", {
       method: "POST",
       body: formData,
-      credentials: "same-origin" // This line is important for maintaining the session
+      credentials: "same-origin", // This line is important for maintaining the session
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert("Task added successfully");
-        closePopup();
-        document.getElementById("addtask").reset();
-        location.reload();
-      } else {
-        alert("Failed to add task: " + data.message);
-      }
-    })
-    .catch(error => {
-      alert("An error occurred: " + error.message);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          alert("Task added successfully");
+          closePopup();
+          document.getElementById("addtask").reset();
+          location.reload();
+        } else {
+          alert("Failed to add task: " + data.message);
+        }
+      })
+      .catch((error) => {
+        alert("An error occurred: " + error.message);
+      });
   });
 
-  openPopupButton.addEventListener('click', function(event) {
+  openPopupButton.addEventListener("click", function (event) {
     event.preventDefault();
     openPopup();
-  }); 
+  });
 
   // Click event listener for overlay
-  overlay.addEventListener('click', function(event) {
+  overlay.addEventListener("click", function (event) {
     console.log("Overlay clicked");
-    const popup = overlay.querySelector('.popup');
+    const popup = overlay.querySelector(".popup");
     if (!popup.contains(event.target) && event.target !== openPopupButton) {
       console.log("Closing popup");
       closePopup();
@@ -52,54 +54,56 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  addTaskForm.addEventListener('click', function(event) {
+  addTaskForm.addEventListener("click", function (event) {
     event.stopPropagation();
   });
 
-  document.getElementById("updatetask").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
+  document
+    .getElementById("updatetask")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the form from submitting the traditional way
 
-    const formData = new FormData(this);
+      const formData = new FormData(this);
 
-    const updatedData = Object.fromEntries(formData.entries());
+      const updatedData = Object.fromEntries(formData.entries());
 
-    // Check if any changes were made
-    const hasChanges = Object.keys(updatedData).some(key => {
-      return updatedData[key] !== originalTaskData[key];
-    });
+      // Check if any changes were made
+      const hasChanges = Object.keys(updatedData).some((key) => {
+        return updatedData[key] !== originalTaskData[key];
+      });
 
-    if (!hasChanges) {
-      // No changes were made, just close the overlay
-      closeUpdatePopup();
-      return;
-    }
-
-    fetch("updateTask.php", {
-      method: "POST",
-      body: formData,
-      credentials: "same-origin" // This line is important for maintaining the session
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert(data.message);
-        closeUpdate();
-        location.reload(); // Reload the page to show updated task
-      } else {
-        alert("No Updates Made: " + data.message);
-        closeUpdate();
+      if (!hasChanges) {
+        // No changes were made, just close the overlay
+        closeUpdatePopup();
+        return;
       }
-    })
-    .catch(error => {
-      alert("An error occurred: " + error.message);
+
+      fetch("updateTask.php", {
+        method: "POST",
+        body: formData,
+        credentials: "same-origin", // This line is important for maintaining the session
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            alert(data.message);
+            closeUpdate();
+            location.reload(); // Reload the page to show updated task
+          } else {
+            alert("No Updates Made: " + data.message);
+            closeUpdate();
+          }
+        })
+        .catch((error) => {
+          alert("An error occurred: " + error.message);
+        });
     });
-  });
 
-  document.getElementById("updateOverlay").addEventListener("click", function(event) {
-    closeUpdatePopup(event);
-  });
-
-
+  document
+    .getElementById("updateOverlay")
+    .addEventListener("click", function (event) {
+      closeUpdatePopup(event);
+    });
 });
 
 function openPopup() {
@@ -155,12 +159,10 @@ function updateTaskStatus(taskId, newStatus) {
   setTimeout(reloadPage, 100);
 }
 
-
-
 function openUpdatePopup(taskId) {
   fetch(`getTaskDetails.php?taskId=${taskId}`)
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       if (data.success) {
         populateUpdateForm(data.task);
         document.getElementById("updateOverlay").style.display = "flex";
@@ -168,7 +170,7 @@ function openUpdatePopup(taskId) {
         alert("Failed to fetch task details: " + data.message);
       }
     })
-    .catch(error => {
+    .catch((error) => {
       alert("An error occurred: " + error.message);
     });
 }
@@ -176,12 +178,10 @@ function openUpdatePopup(taskId) {
 let originalTaskData = {};
 
 function populateUpdateForm(task) {
+  originalTaskData = { ...task }; // Make a copy of the task data for comparison purposes
 
-  originalTaskData = {...task }; // Make a copy of the task data for comparison purposes
-
-  document.getElementById('updateTaskId').value = task.TaskID;
-  document.querySelector('.delete-task-button').dataset.taskId = task.TaskID;
-
+  document.getElementById("updateTaskId").value = task.TaskID;
+  document.querySelector(".delete-task-button").dataset.taskId = task.TaskID;
 
   let missingFields = [];
   const fields = [
@@ -190,25 +190,23 @@ function populateUpdateForm(task) {
     { id: "update-task-priority", key: "Priority" },
     { id: "update-task-status", key: "Status" },
     { id: "update-task-desc", key: "TaskDescription" },
-    { id: "update-categories", key: "CategoryName" }
+    { id: "update-categories", key: "CategoryName" },
   ];
 
-
-
-  fields.forEach(field => {
+  fields.forEach((field) => {
     const element = document.getElementById(field.id);
     if (element) {
-      element.value = task[field.key] || '';
+      element.value = task[field.key] || "";
     } else {
       missingFields.push(field.id);
     }
   });
 
-  const deleteButton = document.querySelector('.delete-task-button');
+  const deleteButton = document.querySelector(".delete-task-button");
   if (deleteButton) {
     deleteButton.dataset.taskId = task.TaskID;
   } else {
-    missingFields.push('delete-task-button');
+    missingFields.push("delete-task-button");
   }
 
   if (missingFields.length > 0) {
@@ -228,7 +226,7 @@ function closeUpdate() {
 
 // Function to delete a task
 function deleteTask() {
-  const taskId = document.querySelector('.delete-task-button').dataset.taskId;
+  const taskId = document.querySelector(".delete-task-button").dataset.taskId;
   if (!taskId) {
     alert("No task selected for deletion");
     return;
@@ -242,18 +240,18 @@ function deleteTask() {
       },
       body: `taskId=${taskId}`,
     })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        closeUpdate();
-        location.reload(); // Reload the page to reflect the deletion
-      } else {
-        alert("Task Deleted: " + data.message);
-      }
-    })
-    .catch(error => {
-      alert("An error occurred: " + error.message);
-    });
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          closeUpdate();
+          location.reload(); // Reload the page to reflect the deletion
+        } else {
+          alert("Task Deleted: " + data.message);
+        }
+      })
+      .catch((error) => {
+        alert("An error occurred: " + error.message);
+      });
   }
 }
 
@@ -263,7 +261,6 @@ function closeDeletePopup() {
 }
 
 // Assuming you have a button with class 'delete-task-button' for deleting tasks
-document.querySelectorAll('.delete-task-button').forEach(button => {
-  button.addEventListener('click', deleteTask);
+document.querySelectorAll(".delete-task-button").forEach((button) => {
+  button.addEventListener("click", deleteTask);
 });
-

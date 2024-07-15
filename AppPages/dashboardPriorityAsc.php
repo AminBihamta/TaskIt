@@ -3,7 +3,14 @@ session_start();
 require_once ('../config.php');
 
 $userEmail = $_SESSION['$userEmail'];
-$sql = "SELECT * FROM task WHERE Email = ? ORDER BY DueDate ASC";
+$sql = "SELECT * FROM task WHERE Email = ? ORDER BY 
+    CASE 
+        WHEN Priority = 'low' THEN 1
+        WHEN Priority = 'medium' THEN 2
+        WHEN Priority = 'high' THEN 3
+        ELSE 4
+    END,
+    DueDate ASC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $userEmail);
 $stmt->execute();
@@ -20,7 +27,6 @@ while ($row = $result->fetch_assoc()) {
 }
 $stmt->close();
 
-
 ?>
 
 
@@ -32,8 +38,8 @@ $stmt->close();
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
   <link rel="stylesheet" href="dashboardStyles2.css" />
-  <script src="dsahboardScript.js"></script>
   <script src="themeChanger.js"></script>
+  <script src="dsahboardScript.js"></script>
 </head>
 
 <body>
@@ -61,7 +67,6 @@ $stmt->close();
         d="M98.3711 30.4697L86.8969 18.9972C86.2075 18.308 86.2075 17.1905 86.8969 16.5012L89.3933 14.0051C90.0826 13.3158 91.2004 13.3158 91.8897 14.0051L99.6193 21.7334L120.156 2.24157C120.845 1.55232 123.207 -0.501265 125.56 1.78677L128.001 4.40167C128.001 4.40167 128.001 4.40167 126.83 5.55256L100.868 30.4697C100.178 31.159 99.0604 31.159 98.3711 30.4697Z"
         fill="#5531E5" />
     </svg>
-    <!-- buttons for changing themes-->
     <form id="themeButtonContainer">
       <button type="button" style="width: 30px; height: 30px" class="theme-button changeToPink"></button>
       <button type="button" style="width: 30px; height: 30px" class="theme-button changeToCyan"></button>
@@ -71,22 +76,23 @@ $stmt->close();
 
 
     <div>
-      <a href="">All Tasks</a>
-      <svg xmlns="http://www.w3.org/2000/svg" width="45" height="46" viewBox="0 0 45 46" fill="none">
-        <g clip-path="url(#clip0_274_53)">
-          <path
-            d="M35.3979 25.6614H14.0625C13.3166 25.6614 12.6012 25.3651 12.0738 24.8377C11.5463 24.3102 11.25 23.5948 11.25 22.8489C11.25 22.103 11.5463 21.3876 12.0738 20.8602C12.6012 20.3327 13.3166 20.0364 14.0625 20.0364H35.3979L31.7615 16.4C31.2365 15.8721 30.9423 15.1575 30.9433 14.413C30.9444 13.6686 31.2406 12.9549 31.767 12.4284C32.2934 11.902 33.0071 11.6058 33.7516 11.6047C34.4961 11.6037 35.2106 11.8979 35.7385 12.4229L44.176 20.8604C44.4373 21.1215 44.6445 21.4315 44.7859 21.7727C44.9272 22.1139 45 22.4796 45 22.8489C45 23.2183 44.9272 23.584 44.7859 23.9252C44.6445 24.2664 44.4373 24.5764 44.176 24.8375L35.7385 33.275C35.4777 33.5373 35.1676 33.7456 34.8261 33.8879C34.4846 34.0301 34.1183 34.1037 33.7484 34.1042C33.3784 34.1047 33.012 34.0322 32.6701 33.8909C32.3282 33.7495 32.0175 33.5421 31.7559 33.2805C31.4943 33.0189 31.2869 32.7082 31.1456 32.3663C31.0042 32.0244 30.9317 31.658 30.9323 31.288C30.9328 30.9181 31.0063 30.5519 31.1486 30.2103C31.2909 29.8688 31.4991 29.5588 31.7615 29.2979L35.3979 25.6614Z"
-            fill="white" />
-          <path
-            d="M2.8125 0.348877H25.3125C25.6819 0.348668 26.0477 0.421272 26.389 0.56254C26.7304 0.703807 27.0405 0.910966 27.3017 1.17217C27.5629 1.43338 27.7701 1.74351 27.9113 2.08483C28.0526 2.42616 28.1252 2.79198 28.125 3.16138V8.78638C28.125 9.5323 27.8287 10.2477 27.3012 10.7751C26.7738 11.3026 26.0584 11.5989 25.3125 11.5989C24.5666 11.5989 23.8512 11.3026 23.3238 10.7751C22.7963 10.2477 22.5 9.5323 22.5 8.78638V5.97388H5.625V39.7239H22.5V36.9114C22.5 36.1655 22.7963 35.4501 23.3238 34.9226C23.8512 34.3952 24.5666 34.0989 25.3125 34.0989C26.0584 34.0989 26.7738 34.3952 27.3012 34.9226C27.8287 35.4501 28.125 36.1655 28.125 36.9114V42.5364C28.1252 42.9058 28.0526 43.2716 27.9113 43.6129C27.7701 43.9542 27.5629 44.2644 27.3017 44.5256C27.0405 44.7868 26.7304 44.9939 26.389 45.1352C26.0477 45.2765 25.6819 45.3491 25.3125 45.3489H2.8125C2.4431 45.3491 2.07728 45.2765 1.73595 45.1352C1.39463 44.9939 1.0845 44.7868 0.823295 44.5256C0.562089 44.2644 0.354928 43.9542 0.213661 43.6129C0.0723941 43.2716 -0.000209506 42.9058 0 42.5364V3.16138C-0.000209506 2.79198 0.0723941 2.42616 0.213661 2.08483C0.354928 1.74351 0.562089 1.43338 0.823295 1.17217C1.0845 0.910966 1.39463 0.703807 1.73595 0.56254C2.07728 0.421272 2.4431 0.348668 2.8125 0.348877Z"
-            fill="white" />
-        </g>
-        <defs>
-          <clipPath id="clip0_274_53">
-            <rect width="45" height="45" fill="white" transform="matrix(-1 0 0 1 45 0.348877)" />
-          </clipPath>
-        </defs>
-      </svg>
+      <a href="alltasks.php">All Tasks</a>
+      <a style="margin-left: 20px;" href="logout.php"><svg xmlns="http://www.w3.org/2000/svg" width="45" height="46"
+          viewBox="0 0 45 46" fill="none">
+          <g clip-path="url(#clip0_274_53)">
+            <path
+              d="M35.3979 25.6614H14.0625C13.3166 25.6614 12.6012 25.3651 12.0738 24.8377C11.5463 24.3102 11.25 23.5948 11.25 22.8489C11.25 22.103 11.5463 21.3876 12.0738 20.8602C12.6012 20.3327 13.3166 20.0364 14.0625 20.0364H35.3979L31.7615 16.4C31.2365 15.8721 30.9423 15.1575 30.9433 14.413C30.9444 13.6686 31.2406 12.9549 31.767 12.4284C32.2934 11.902 33.0071 11.6058 33.7516 11.6047C34.4961 11.6037 35.2106 11.8979 35.7385 12.4229L44.176 20.8604C44.4373 21.1215 44.6445 21.4315 44.7859 21.7727C44.9272 22.1139 45 22.4796 45 22.8489C45 23.2183 44.9272 23.584 44.7859 23.9252C44.6445 24.2664 44.4373 24.5764 44.176 24.8375L35.7385 33.275C35.4777 33.5373 35.1676 33.7456 34.8261 33.8879C34.4846 34.0301 34.1183 34.1037 33.7484 34.1042C33.3784 34.1047 33.012 34.0322 32.6701 33.8909C32.3282 33.7495 32.0175 33.5421 31.7559 33.2805C31.4943 33.0189 31.2869 32.7082 31.1456 32.3663C31.0042 32.0244 30.9317 31.658 30.9323 31.288C30.9328 30.9181 31.0063 30.5519 31.1486 30.2103C31.2909 29.8688 31.4991 29.5588 31.7615 29.2979L35.3979 25.6614Z"
+              fill="white" />
+            <path
+              d="M2.8125 0.348877H25.3125C25.6819 0.348668 26.0477 0.421272 26.389 0.56254C26.7304 0.703807 27.0405 0.910966 27.3017 1.17217C27.5629 1.43338 27.7701 1.74351 27.9113 2.08483C28.0526 2.42616 28.1252 2.79198 28.125 3.16138V8.78638C28.125 9.5323 27.8287 10.2477 27.3012 10.7751C26.7738 11.3026 26.0584 11.5989 25.3125 11.5989C24.5666 11.5989 23.8512 11.3026 23.3238 10.7751C22.7963 10.2477 22.5 9.5323 22.5 8.78638V5.97388H5.625V39.7239H22.5V36.9114C22.5 36.1655 22.7963 35.4501 23.3238 34.9226C23.8512 34.3952 24.5666 34.0989 25.3125 34.0989C26.0584 34.0989 26.7738 34.3952 27.3012 34.9226C27.8287 35.4501 28.125 36.1655 28.125 36.9114V42.5364C28.1252 42.9058 28.0526 43.2716 27.9113 43.6129C27.7701 43.9542 27.5629 44.2644 27.3017 44.5256C27.0405 44.7868 26.7304 44.9939 26.389 45.1352C26.0477 45.2765 25.6819 45.3491 25.3125 45.3489H2.8125C2.4431 45.3491 2.07728 45.2765 1.73595 45.1352C1.39463 44.9939 1.0845 44.7868 0.823295 44.5256C0.562089 44.2644 0.354928 43.9542 0.213661 43.6129C0.0723941 43.2716 -0.000209506 42.9058 0 42.5364V3.16138C-0.000209506 2.79198 0.0723941 2.42616 0.213661 2.08483C0.354928 1.74351 0.562089 1.43338 0.823295 1.17217C1.0845 0.910966 1.39463 0.703807 1.73595 0.56254C2.07728 0.421272 2.4431 0.348668 2.8125 0.348877Z"
+              fill="white" />
+          </g>
+          <defs>
+            <clipPath id="clip0_274_53">
+              <rect width="45" height="45" fill="white" transform="matrix(-1 0 0 1 45 0.348877)" />
+            </clipPath>
+          </defs>
+        </svg></a>
     </div>
 
 
@@ -106,18 +112,8 @@ $stmt->close();
       <button style="width: 50%" onclick="openPopup()">
         + Add a new task
       </button>
-      <button style="width: 20%">
-        <svg style="padding-top: 3px" xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18"
-          fill="none">
-          <path
-            d="M0.916946 2.52429L7.6731 10.3847V16.6154L11.8269 13.8462V10.3847L18.5831 2.52429C18.968 2.0743 18.6447 1.38477 18.0479 1.38477H1.45209C0.855332 1.38477 0.532028 2.0743 0.916946 2.52429Z"
-            stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>Filter
-      </button>
-
       <div class="dropdown">
-        <button class="dropbtn"> <svg style="padding-top: 5px" xmlns="http://www.w3.org/2000/svg" width="23" height="14"
-            viewBox="0 0 23 14" fill="none">
+        <button class="dropbtn"> <svg style="padding-top: 5px" width="23" height="14" viewBox="0 0 23 14" fill="none">
             <path
               d="M13.0278 13.5H10.4722C10.104 13.5 9.80556 13.2015 9.80556 12.8333C9.80556 12.4651 10.104 12.1667 10.4722 12.1667H13.0278C13.396 12.1667 13.6944 12.4651 13.6944 12.8333C13.6944 13.2015 13.396 13.5 13.0278 13.5ZM21.5833 1.83333H1.91667C1.54848 1.83333 1.25 1.53486 1.25 1.16667C1.25 0.798476 1.54848 0.5 1.91667 0.5H21.5833C21.9515 0.5 22.25 0.798477 22.25 1.16667C22.25 1.53486 21.9515 1.83333 21.5833 1.83333ZM17.9167 7.66667H5.58333C5.21514 7.66667 4.91667 7.36819 4.91667 7C4.91667 6.63181 5.21514 6.33333 5.58333 6.33333H17.9167C18.2849 6.33333 18.5833 6.63181 18.5833 7C18.5833 7.36819 18.2849 7.66667 17.9167 7.66667Z"
               fill="white" stroke="white" />
@@ -162,7 +158,7 @@ $stmt->close();
           <p class="kanbanColumnHeading"><?php echo $title; ?></p>
           <?php foreach ($tasks[$status] as $task): ?>
             <div class="taskItem" draggable="true" ondragstart="drag(event)" id="task-<?php echo $task['TaskID']; ?>"
-              data-task-id="<?php echo $task['TaskID']; ?>">
+              onclick="openUpdatePopup(<?php echo $task['TaskID']; ?>)" data-task-id="<?php echo $task['TaskID']; ?>">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="41" viewBox="0 0 20 41" fill="none">
                 <path
                   d="M0 2C0 0.895431 0.895431 0 2 0H18C19.1046 0 20 0.89543 20 2V39C20 40.1046 19.1046 41 18 41H2C0.895431 41 0 40.1046 0 39V2Z"
@@ -203,13 +199,12 @@ $stmt->close();
     </div>
   </div>
 
-  <div id="overlay" class="overlay" onclick="closePopup(event)">
+  <div id="overlay" class="overlay">
     <div class="popup">
       <div class="TaskContainer">
         <form id="addtask" action="addTask.php" method="post">
           <div class="title-row">
             <input type="text" id="taskTitle" placeholder="Task Title Goes Here" name="TaskTitle" required>
-            <button class="delete"><img src="../media/deleteIcon.svg"></button>
           </div>
 
           <div class="form-row1">
@@ -231,7 +226,7 @@ $stmt->close();
           <div class="form-row2">
             <div class="category">
               <label for="task-category"><img src="../media/categoryIcon.svg" alt="Category"></label>
-              <input readonly list="category-options" id="categories" name="Category">
+              <input list="category-options" id="categories" name="Category">
               <datalist id="category-options">
               </datalist>
             </div>
@@ -258,8 +253,69 @@ $stmt->close();
         </form>
 
       </div>
-    </div><!-- /.overlay -->
+    </div>
   </div>
+
+  <div id="updateOverlay" class="overlay" onclick="closePopup(event)">
+    <div class="popup">
+      <div class="TaskContainer">
+        <form id="updatetask" action="updateTask.php" method="post">
+          <input type="hidden" id="updateTaskId" name="updateTaskId" value="">
+          <div class="title-row">
+            <input type="text" id="updateTaskTitle" name="updateTaskTitle" required>
+            <button class="delete-task-button" type="button" onclick="deleteTask()"><img
+                src="../media/deleteIcon.svg"></button>
+          </div>
+
+          <div class="form-row1">
+            <div class="date">
+              <label for="update-task-date"><img src="../media/Calendaricon.svg" alt="Calender"></label>
+              <input required type="date" id="update-task-date" name="update-task-date">
+            </div>
+
+            <div class="priority">
+              <label for="update-task-priority"><img src="../media/priorityIcon.svg" alt="Priority"></label>
+              <select required id="update-task-priority" name="update-task-priority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row2">
+            <div class="category">
+              <label for="update-task-category"><img src="../media/categoryIcon.svg" alt="Category"></label>
+              <input list="category-options" id="update-categories" name="update-categories">
+              <datalist id="category-options">
+              </datalist>
+            </div>
+
+            <div class="status">
+              <label for="update-task-status"><img src="../media/statusIcon.svg" alt="Status"></label>
+              <select required id="update-task-status" name="update-task-status" placeholder="Status">
+                <option value="Todo">Todo</option>
+                <option value="In-Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
+              </select>
+            </div>
+          </div>
+          <div class="notes-row">
+            <label for="update-task-desc"><img src="../media/descriptionIcon.svg" alt="desc"></label>
+            <textarea id="update-task-desc" name="update-task-desc" placeholder="Description"></textarea>
+          </div>
+
+          <div class="add-button">
+            <button class="button" type="submit"> Submit Task </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
