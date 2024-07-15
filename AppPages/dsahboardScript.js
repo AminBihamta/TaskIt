@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         alert("Task added successfully");
         closePopup();
         document.getElementById("addtask").reset();
+        location.reload();
       } else {
         alert("Failed to add task: " + data.message);
       }
@@ -97,6 +98,12 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("updateOverlay").addEventListener("click", function(event) {
     closeUpdatePopup(event);
   });
+
+  document.querySelector('.delete-task-button').addEventListener('click', function(event) {
+    event.preventDefault();
+    deleteTask();
+  });
+
 });
 
 function openPopup() {
@@ -176,9 +183,12 @@ function populateUpdateForm(task) {
 
   originalTaskData = {...task }; // Make a copy of the task data for comparison purposes
 
+  document.getElementById('updateTaskId').value = task.TaskID;
+  document.querySelector('.delete-task-button').dataset.taskId = task.TaskID;
+
+
   let missingFields = [];
   const fields = [
-    {id: "updateTaskId", key: "TaskID"},
     { id: "updateTaskTitle", key: "TaskTitle" },
     { id: "update-task-date", key: "DueDate" },
     { id: "update-task-priority", key: "Priority" },
@@ -198,6 +208,13 @@ function populateUpdateForm(task) {
     }
   });
 
+  const deleteButton = document.querySelector('.delete-task-button');
+  if (deleteButton) {
+    deleteButton.dataset.taskId = task.TaskID;
+  } else {
+    missingFields.push('delete-task-button');
+  }
+
   if (missingFields.length > 0) {
     alert("The following fields are missing: " + missingFields.join(", "));
   }
@@ -214,28 +231,33 @@ function closeUpdate() {
 }
 
 // Function to delete a task
-function deleteTask(taskId) {
+function deleteTask() {
+  const taskId = document.querySelector('.delete-task-button').dataset.taskId;
+  if (!taskId) {
+    alert("No task selected for deletion");
+    return;
+  }
+
   if (confirm("Are you sure you want to delete this task?")) {
-      fetch("deleteTask.php", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: `taskId=${taskId}`,
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              alert(data.message);
-              closeUpdatePopup();
-              location.reload(); // Reload the page to reflect the deletion
-          } else {
-              alert("Error deleting task: " + data.message);
-          }
-      })
-      .catch(error => {
-          alert("An error occurred: " + error.message);
-      });
+    fetch("deleteTask.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `taskId=${taskId}`,
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        closeUpdate();
+        location.reload(); // Reload the page to reflect the deletion
+      } else {
+        alert("Error deleting task: " + data.message);
+      }
+    })
+    .catch(error => {
+      alert("An error occurred: " + error.message);
+    });
   }
 }
 
