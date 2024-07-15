@@ -29,8 +29,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['$userEmail'] = $email;
                 $_SESSION['$userNickname'] = $nickname;
 
-                header("Location: ../AppPages/dashboard.php");
-                exit();
+                if($email === 'admin@example.com') {
+                    $sqlUpdate = "UPDATE user SET UserType = 'admin' WHERE email = ?";
+                    $stmtUpdate = $conn->prepare($sqlUpdate);
+                    $stmtUpdate->bind_param("s", $email);
+                    $stmtUpdate->execute();
+                    header("Location: ../AdminPage/admin.php");
+                } else{
+                    $sqlUpdate = "UPDATE user SET UserType = 'user' WHERE email = ?";
+                    $stmtUpdate = $conn->prepare($sqlUpdate);
+                    $stmtUpdate->bind_param("s", $email);
+                    $stmtUpdate->execute();
+                    header("Location: ../AppPages/dashboard.php");
+                    exit();
+                }                
             } else {
                 $error = "Incorrect password. Try again.";
             }

@@ -1,0 +1,422 @@
+:root {
+    --Primary-Text-Color: #FFF; 
+    --Primary-color: #5531E5;
+    --Light-Purple-Text-Color: #BFAFFF;
+    --Done-Background-color: #2D1A7B;
+    --Purple-Background-Fill: #16172A;
+    --Background-color: #111111;
+    --Todo-Background: #1C1C1C;
+}
+
+body {
+    background-color: var(--Background-color);
+    color: var(--Primary-Text-Color);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--Purple-Background-Fill);
+}
+
+#logo {
+    height: 40px;
+}
+
+#logout-btn {
+    background-color: transparent;
+    border: 1px solid var(--Primary-Text-Color);
+    color: var(--Primary-Text-Color);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+header {
+ display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+h1 {
+    color: var(--Primary-Text-Color);
+  font-family: "Baloo Tammudu", sans-serif;
+  text-align: center;
+}
+
+p,
+a {
+  color: var(--Primary-Text-Color);
+  font-family: "Ek Mukta", Calibri;
+  font-size: 25px;
+  display: inline;
+  text-decoration: none;
+}
+
+main {
+    padding: 1rem;
+}
+
+#user-management {
+    display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: column;
+  margin: 3% ;
+}
+
+#controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#add-user-btn, #filter-btn {
+    background-color: rgba(85, 49, 229, 0.5);
+    color: var(--Primary-Text-Color);
+    border: 1px solid var(--Primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+#add-user-btn{
+    width: 25%;
+}
+
+#filter-btn{
+    width: 20%;
+}
+
+#search-user {
+    flex: 1; /* Ensure the input stretches within the container */
+    background-color: rgba(85, 49, 229, 0.5);
+    color: var(--Primary-Text-Color);
+    border: 1px solid var(--Primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    position: relative;
+    flex-grow: 1;
+}
+
+#search-bar-form{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+
+.submit{
+    cursor: pointer;
+}
+
+
+.search-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.search-container .icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--Primary-Text-Color);
+}
+
+#filter-btn .icon {
+    margin-right: 0.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+
+th, td {
+    border: 1px solid var(--Primary-color);
+    padding: 0.5rem;
+    text-align: center;
+}
+
+th {
+    background-color: var(--Purple-Background-Fill);
+    color: var(--Primary-Text-Color);
+}
+
+td {
+    color: var(--Primary-Text-Color);
+}
+
+.actions{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5%;
+}
+
+.actions button {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    background: var(--Background-color);
+    border: 2px solid transparent;
+    border-radius: 25px;
+    padding: 0.3rem 0.5rem;
+    margin-right: 0.2rem;
+    cursor: pointer;
+    color: #BFAFFF;
+    position: relative; /* Allow for pseudo-element positioning */
+
+    background-clip: padding-box, border-box; /* Ensures correct gradient border */
+    background-origin: border-box; /* Ensures correct gradient border */
+    background-image: linear-gradient(var(--Background-color), var(--Background-color)), linear-gradient(to bottom right, white, #2D1A7B);
+}
+
+.actions button:last-child {
+    margin-right: 0;
+}
+
+
+/* Popup Containers */
+.popup-container, .Username-popup-container, .Password-popup-container, .Remove-user-popup-container{
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+/* Popup Content */
+.popup, .Username-popup, .Password-popup, .Remove-user-popup {
+    background-color: var(--Purple-Background-Fill);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    width: 400px;
+    overflow: hidden;
+    border: 3px solid #5531E5;
+}
+
+
+.Remove-user-popup .popup-content {
+    text-align: center;
+}
+
+.remove-options {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+#Remove-user-close {
+    position: relative;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+#Remove-user-close:hover {
+    background-color: #e53935;
+}
+
+.submit_button_remove_user {
+    margin-top: 20px;
+}
+
+.submit_remove_user {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit_remove_user:hover {
+    background-color: #45a049;
+}
+
+.Remove-user-popup .submit_button_remove_user {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.popup-content {
+    padding: 20px;
+}
+
+.popup-form div {
+    margin: 20px 0;
+}
+
+.popup-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--Primary-Text-Color);
+    font-size: 150%;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 25px;
+    position: absolute;
+    top: 5px;
+    right: 12px;
+    cursor: pointer;
+}
+
+.userInputs {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.userInputs label {
+    margin-bottom: 0.5rem;
+    color: var(--Primary-Text-Color);
+    font-size: 100%;
+}
+
+.userInputs input,
+.userInputs select {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--Primary-color);
+    background-color: rgb(231, 228, 228);
+    color: black;
+    font-size: 1rem; 
+}
+
+.userInputs input {
+    font-size: 100%;
+}
+
+.submit_button {
+    display: flex;
+    justify-content: center;
+}
+
+.submit {
+    background: var(--Primary-color);
+    border: 1px solid var(--Done-Background-color);
+    padding: 10px 30px;
+    border-radius: 30px;
+    height: 40px;
+    color: var(--Primary-Text-Color);
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* JavaScript */
+.popup-container.show-popup {
+    display: block;
+}
+
+
+/*For Filter popup*/
+
+.filter-popup-container {
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.filter-popup-content {
+
+    background-color: var(--Purple-Background-Fill);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    width: 15%;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+    border: 3px solid #5531E5;
+}
+
+
+.filter-popup-content form {
+    margin-bottom: 10px;
+}
+
+.filter-popup-content h2 {
+    font-size: 1.5rem; 
+    margin-bottom: 30px; 
+}
+
+.filter-popup-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.filter-popup-content button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.filter-popup-content input[type="radio"] {
+    margin-right: 10px; /* Adjust spacing between radio buttons */
+    accent-color: #3685f4;
+    transform: scale(1.5);
+}
+
+
+.filter-div-content {
+    text-align: left; /* Align content to the left */
+    padding-left: 30%; 
+    margin: 0 auto; /* Center the div horizontally */
+    /* width: 80%; Adjust width as needed */
+}
+
+.filter-popup-content button {
+    background-color: #5531E5;;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 1.0rem
+}
+
+.filter-popup-content button:hover {
+    background-color: #482ac1;;
+}
