@@ -204,7 +204,7 @@ $stmt->close();
     </div>
   </div>
 
-  <div id="overlay" class="overlay" onclick="closePopup(event)">
+  <div id="overlay" class="overlay">
     <div class="popup">
       <div class="TaskContainer">
         <form id="addtask" action="addTask.php" method="post">

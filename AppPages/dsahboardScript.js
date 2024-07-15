@@ -3,29 +3,56 @@ function reloadPage() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById("addtask").addEventListener("submit", function (event) {
-      event.preventDefault(); // Prevent the form from submitting the traditional way
+  const addTaskForm = document.getElementById("addtask");
+  const overlay = document.getElementById("overlay");
+  const openPopupButton = document.querySelector('button[onclick="openPopup()"]');
 
-      const formData = new FormData(this);
+  openPopupButton.removeAttribute('onclick');
 
-      fetch("addTask.php", {
-          method: "POST",
-          body: formData,
-          credentials: "same-origin" // This line is important for maintaining the session
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.success) {
-              alert("Task added successfully");
-              closePopup("overlay");
-              document.getElementById("addtask").reset();
-          } else {
-              alert("Failed to add task: " + data.message);
-          }
-      })
-      .catch(error => {
-          alert("An error occurred: " + error.message);
-      });
+  addTaskForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the form from submitting the traditional way
+
+    const formData = new FormData(this);
+
+    fetch("addTask.php", {
+      method: "POST",
+      body: formData,
+      credentials: "same-origin" // This line is important for maintaining the session
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert("Task added successfully");
+        closePopup();
+        document.getElementById("addtask").reset();
+      } else {
+        alert("Failed to add task: " + data.message);
+      }
+    })
+    .catch(error => {
+      alert("An error occurred: " + error.message);
+    });
+  });
+
+  openPopupButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    openPopup();
+  }); 
+
+  // Click event listener for overlay
+  overlay.addEventListener('click', function(event) {
+    console.log("Overlay clicked");
+    const popup = overlay.querySelector('.popup');
+    if (!popup.contains(event.target) && event.target !== openPopupButton) {
+      console.log("Closing popup");
+      closePopup();
+    } else {
+      console.log("Clicked inside popup or on open button");
+    }
+  });
+
+  addTaskForm.addEventListener('click', function(event) {
+    event.stopPropagation();
   });
 
   document.getElementById("updatetask").addEventListener("submit", function (event) {
@@ -37,47 +64,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if any changes were made
     const hasChanges = Object.keys(updatedData).some(key => {
-        return updatedData[key] !== originalTaskData[key];
+      return updatedData[key] !== originalTaskData[key];
     });
 
     if (!hasChanges) {
-        // No changes were made, just close the overlay
-        closeUpdatePopup();
-        return;
+      // No changes were made, just close the overlay
+      closeUpdatePopup();
+      return;
     }
 
     fetch("updateTask.php", {
-        method: "POST",
-        body: formData,
-        credentials: "same-origin" // This line is important for maintaining the session
+      method: "POST",
+      body: formData,
+      credentials: "same-origin" // This line is important for maintaining the session
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            alert(data.message);
-            closeUpdate();
-            location.reload(); // Reload the page to show updated task
-        } else {
-            alert("No Updates Made: " + data.message);
-            closeUpdate();
-        }
+      if (data.success) {
+        alert(data.message);
+        closeUpdate();
+        location.reload(); // Reload the page to show updated task
+      } else {
+        alert("No Updates Made: " + data.message);
+        closeUpdate();
+      }
     })
     .catch(error => {
-        alert("An error occurred: " + error.message);
+      alert("An error occurred: " + error.message);
     });
   });
+
   document.getElementById("updateOverlay").addEventListener("click", function(event) {
     closeUpdatePopup(event);
   });
-
-
 });
 
 function openPopup() {
   document.getElementById("overlay").style.display = "flex";
 }
 
-function closePopup(id) {
+function closePopup() {
   document.getElementById("overlay").style.display = "none";
 }
 
