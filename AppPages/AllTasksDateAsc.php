@@ -1,26 +1,8 @@
 <?php
 session_start();
 require_once ('../config.php');
-
-$userEmail = $_SESSION['$userEmail'];
-$sql = "SELECT * FROM task WHERE Email = ? ORDER BY DueDate ASC";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $userEmail);
-$stmt->execute();
-$result = $stmt->get_result();
-
-$tasks = [
-    'Todo' => [],
-    'In-Progress' => [],
-    'Done' => []
-];
-
-while ($row = $result->fetch_assoc()) {
-    $tasks[$row['Status']][] = $row;
-}
-$stmt->close();
-
 ?>
+
 
 
 <!DOCTYPE html>

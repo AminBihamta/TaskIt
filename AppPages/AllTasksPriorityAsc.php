@@ -1,33 +1,8 @@
 <?php
 session_start();
 require_once ('../config.php');
-
-$userEmail = $_SESSION['$userEmail'];
-$sql = "SELECT * FROM task WHERE Email = ? ORDER BY 
-    CASE 
-        WHEN Priority = 'low' THEN 1
-        WHEN Priority = 'medium' THEN 2
-        WHEN Priority = 'high' THEN 3
-        ELSE 4
-    END,
-    DueDate ASC";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $userEmail);
-$stmt->execute();
-$result = $stmt->get_result();
-
-$tasks = [
-    'Todo' => [],
-    'In-Progress' => [],
-    'Done' => []
-];
-
-while ($row = $result->fetch_assoc()) {
-    $tasks[$row['Status']][] = $row;
-}
-$stmt->close();
-
 ?>
+
 
 
 <!DOCTYPE html>
