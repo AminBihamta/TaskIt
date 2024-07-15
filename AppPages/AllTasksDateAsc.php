@@ -3,7 +3,7 @@ session_start();
 require_once ('../config.php');
 
 $userEmail = $_SESSION['$userEmail'];
-$sql = "SELECT * FROM task WHERE Email = ? ORDER BY DueDate DESC";
+$sql = "SELECT * FROM task WHERE Email = ? ORDER BY DueDate ASC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $userEmail);
 $stmt->execute();
@@ -159,7 +159,7 @@ $stmt->close();
 
         $userEmail = $_SESSION['$userEmail'];
 
-        $sql = "SELECT TaskID, TaskTitle, DueDate, Priority, Status, CategoryID, TaskDescription FROM task WHERE Email = ? ORDER BY DueDate DESC";
+        $sql = "SELECT TaskID, TaskTitle, DueDate, Priority, Status, CategoryID, TaskDescription FROM task WHERE Email = ? ORDER BY DueDate ASC";
 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $userEmail);
