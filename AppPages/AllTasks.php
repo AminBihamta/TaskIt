@@ -114,25 +114,25 @@ $stmt->close();
                     </svg>Sort
                 </button>
                 <div class="dropdown-content">
-                    <a href="dashboard.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
+                    <a href="AllTasks.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
                             viewBox="0 0 11 13" fill="none">
                             <path
                                 d="M10.1578 8.96221L6.32497 12.6675C6.11325 12.8892 5.82488 13 5.5073 13C5.18972 13 4.905 12.8892 4.68963 12.6675L0.842216 8.96221C0.385928 8.52259 0.385928 7.80591 0.842216 7.3663C1.2985 6.92668 2.03586 6.92668 2.49215 7.3663L4.3319 9.14692V1.13043C4.3319 0.50611 4.8539 0 5.5 0C6.1461 0 6.6681 0.50611 6.6681 1.13043V9.14692L8.50785 7.3663C8.96414 6.92668 9.7015 6.92668 10.1578 7.3663C10.6141 7.80591 10.6141 8.5189 10.1578 8.96221Z"
                                 fill="white" />
                         </svg>Date</a>
-                    <a href="dashboardDateAsc.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
+                    <a href="AllTasksDateAsc.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
                             viewBox="0 0 11 13" fill="none">
                             <path
                                 d="M0.842216 4.03779L4.67503 0.332481C4.88675 0.110827 5.17512 0 5.4927 0C5.81028 0 6.095 0.110827 6.31037 0.332481L10.1578 4.03779C10.6141 4.47741 10.6141 5.19409 10.1578 5.6337C9.7015 6.07332 8.96414 6.07332 8.50785 5.6337L6.6681 3.85308L6.6681 11.8696C6.6681 12.4939 6.1461 13 5.5 13C4.8539 13 4.3319 12.4939 4.3319 11.8696L4.3319 3.85308L2.49215 5.6337C2.03586 6.07332 1.2985 6.07332 0.842216 5.6337C0.385928 5.19409 0.385928 4.4811 0.842216 4.03779Z"
                                 fill="white" />
                         </svg>Date</a>
-                    <a href="dashboardPriorityDesc.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
+                    <a href="AllTasksPriorityDesc.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
                             viewBox="0 0 11 13" fill="none">
                             <path
                                 d="M10.1578 8.96221L6.32497 12.6675C6.11325 12.8892 5.82488 13 5.5073 13C5.18972 13 4.905 12.8892 4.68963 12.6675L0.842216 8.96221C0.385928 8.52259 0.385928 7.80591 0.842216 7.3663C1.2985 6.92668 2.03586 6.92668 2.49215 7.3663L4.3319 9.14692V1.13043C4.3319 0.50611 4.8539 0 5.5 0C6.1461 0 6.6681 0.50611 6.6681 1.13043V9.14692L8.50785 7.3663C8.96414 6.92668 9.7015 6.92668 10.1578 7.3663C10.6141 7.80591 10.6141 8.5189 10.1578 8.96221Z"
                                 fill="white" />
                         </svg>Priority</a>
-                    <a href="dashboardPriorityAsc.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
+                    <a href="AllTasksPriorityAsc.php"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="13"
                             viewBox="0 0 11 13" fill="none">
                             <path
                                 d="M0.842216 4.03779L4.67503 0.332481C4.88675 0.110827 5.17512 0 5.4927 0C5.81028 0 6.095 0.110827 6.31037 0.332481L10.1578 4.03779C10.6141 4.47741 10.6141 5.19409 10.1578 5.6337C9.7015 6.07332 8.96414 6.07332 8.50785 5.6337L6.6681 3.85308L6.6681 11.8696C6.6681 12.4939 6.1461 13 5.5 13C4.8539 13 4.3319 12.4939 4.3319 11.8696L4.3319 3.85308L2.49215 5.6337C2.03586 6.07332 1.2985 6.07332 0.842216 5.6337C0.385928 5.19409 0.385928 4.4811 0.842216 4.03779Z"
@@ -157,25 +157,34 @@ $stmt->close();
 
 
 
-        $userEmail = $_SESSION['$userEmail']; // Assuming you're storing the user's email in the session
-        
+        $userEmail = $_SESSION['$userEmail'];
+
         $sql = "SELECT TaskID, TaskTitle, DueDate, Priority, Status, CategoryID, TaskDescription FROM task WHERE Email = ?";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $userEmail);
+        $stmt->bind_param("i", $userEmail);
         $stmt->execute();
         $result = $stmt->get_result();
 
 
         while ($row = $result->fetch_assoc()) {
+
+
+            $sql2 = "SELECT CategoryName FROM category WHERE CategoryID = ?";
+            $stmt2 = $conn->prepare($sql2);
+            $stmt2->bind_param("i", $row["CategoryID"]);
+            $stmt2->execute();
+            $result2 = $stmt2->get_result();
+            $categoryName = $result2->fetch_assoc();
+
             echo "<tr>
-                <td>" . $row["TaskTitle"] . "</td>
-                <td>" . $row["DueDate"] . "</td>
-                <td>" . $row["Priority"] . "</td>
-                <td>" . $row["Status"] . "</td>
-                <td>" . $row["CategoryID"] . "</td>
-                <td>" . $row["TaskDescription"] . "</td>
-              </tr>";
+    <td>" . $row["TaskTitle"] . "</td>
+    <td>" . $row["DueDate"] . "</td>
+    <td>" . $row["Priority"] . "</td>
+    <td>" . $row["Status"] . "</td>
+    <td>" . $categoryName['CategoryName'] . "</td>
+    <td>" . $row["TaskDescription"] . "</td>
+  </tr>";
         }
 
 
