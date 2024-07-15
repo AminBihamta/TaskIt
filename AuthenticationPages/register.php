@@ -22,6 +22,13 @@ if ($stmt = mysqli_prepare($conn, $sql)) {
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['$userEmail'] = $email;
         $_SESSION['$userNickname'] = $nickname;
+
+        $sqlUpdate = "UPDATE user SET UserType = 'user' WHERE email = ?";
+        $stmtUpdate = $conn->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("s", $email);
+        $stmtUpdate->execute();
+
+
         header("Location:../AppPages/dashboard.php");
         exit();
     } else {
