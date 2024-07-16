@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Input validation
     if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
         // Check if the email exists
-        $stmt = $conn->prepare("SELECT password, NickName FROM user WHERE email = ?");
+        $stmt = $conn->prepare("SELECT password, NickName, UserType FROM user WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -29,17 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['$userEmail'] = $email;
                 $_SESSION['$userNickname'] = $nickname;
 
-                if($email === 'admin@example.com') {
-                    $sqlUpdate = "UPDATE user SET UserType = 'admin' WHERE email = ?";
-                    $stmtUpdate = $conn->prepare($sqlUpdate);
-                    $stmtUpdate->bind_param("s", $email);
-                    $stmtUpdate->execute();
+                if(strtolower($row["UserType"]) == "admin") {
                     header("Location: ../AdminPage/admin.php");
                 } else{
-                    $sqlUpdate = "UPDATE user SET UserType = 'user' WHERE email = ?";
-                    $stmtUpdate = $conn->prepare($sqlUpdate);
-                    $stmtUpdate->bind_param("s", $email);
-                    $stmtUpdate->execute();
                     header("Location: ../AppPages/dashboard.php");
                     exit();
                 }                
